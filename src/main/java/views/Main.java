@@ -28,8 +28,6 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenuBarAcoes = new javax.swing.JMenuBar();
         jMenuEmpregados = new javax.swing.JMenu();
         jMenuItemEmpregadoAdicionar = new javax.swing.JMenuItem();
@@ -42,8 +40,6 @@ public class Main extends javax.swing.JFrame {
         jMenuItemLancamentosServicos = new javax.swing.JMenuItem();
         jMenuItemLancamentosPonto = new javax.swing.JMenuItem();
         jMenuItemLancamentosVenda = new javax.swing.JMenuItem();
-
-        jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu");
@@ -154,7 +150,6 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBarAcoes;
     private javax.swing.JMenu jMenuEmpregados;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItemEmpregadoAdicionar;
     private javax.swing.JMenuItem jMenuItemEmpregadoModificar;
     private javax.swing.JMenuItem jMenuItemEmpregadoRemover;
@@ -165,6 +160,5 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemPagamentosFolha;
     private javax.swing.JMenu jMenuLancamentos;
     private javax.swing.JMenu jMenuPagamentos;
-    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
