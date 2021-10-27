@@ -9,12 +9,12 @@ package views;
  *
  * @author Vinicius
  */
-public class AdicionarEmpregado extends javax.swing.JPanel {
+public class CreateEmployee extends javax.swing.JPanel {
 
     /**
      * Creates new form AdicionarEmpregado
      */
-    public AdicionarEmpregado() {
+    public CreateEmployee() {
         initComponents();   
     }
 
@@ -50,6 +50,8 @@ public class AdicionarEmpregado extends javax.swing.JPanel {
         jFormattedTextFieldHoraTrabalho = new javax.swing.JFormattedTextField();
         jFormattedTextFieldSalario = new javax.swing.JFormattedTextField();
         jFormattedTextFieldComissao = new javax.swing.JFormattedTextField();
+
+        setPreferredSize(new java.awt.Dimension(958, 589));
 
         jLabelNome.setText("Nome:");
 
@@ -139,10 +141,6 @@ public class AdicionarEmpregado extends javax.swing.JPanel {
                                         .addComponent(jLabelTipo)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabelNome)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jLabelComissao)
@@ -156,15 +154,20 @@ public class AdicionarEmpregado extends javax.swing.JPanel {
                                             .addComponent(jLabelHoraTrabalho)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(jFormattedTextFieldHoraTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 310, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelNome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldNome))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButtonReset)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonCancelar)
                         .addGap(37, 37, 37)
-                        .addComponent(jButtonSalvar)))
-                .addGap(21, 21, 21))
+                        .addComponent(jButtonSalvar)
+                        .addGap(11, 11, 11)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

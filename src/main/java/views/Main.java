@@ -31,7 +31,6 @@ public class Main extends javax.swing.JFrame {
         jMenuBarAcoes = new javax.swing.JMenuBar();
         jMenuEmpregados = new javax.swing.JMenu();
         jMenuItemEmpregadoAdicionar = new javax.swing.JMenuItem();
-        jMenuItemEmpregadoRemover = new javax.swing.JMenuItem();
         jMenuItemEmpregadoModificar = new javax.swing.JMenuItem();
         jMenuPagamentos = new javax.swing.JMenu();
         jMenuItemPagamentosFolha = new javax.swing.JMenuItem();
@@ -56,10 +55,12 @@ public class Main extends javax.swing.JFrame {
         });
         jMenuEmpregados.add(jMenuItemEmpregadoAdicionar);
 
-        jMenuItemEmpregadoRemover.setText("Remover");
-        jMenuEmpregados.add(jMenuItemEmpregadoRemover);
-
         jMenuItemEmpregadoModificar.setText("Modificar");
+        jMenuItemEmpregadoModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemEmpregadoModificarActionPerformed(evt);
+            }
+        });
         jMenuEmpregados.add(jMenuItemEmpregadoModificar);
 
         jMenuBarAcoes.add(jMenuEmpregados);
@@ -70,6 +71,11 @@ public class Main extends javax.swing.JFrame {
         jMenuPagamentos.add(jMenuItemPagamentosFolha);
 
         jMenuItemPagamentosAgendas.setText("Agendas");
+        jMenuItemPagamentosAgendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPagamentosAgendasActionPerformed(evt);
+            }
+        });
         jMenuPagamentos.add(jMenuItemPagamentosAgendas);
 
         jMenuBarAcoes.add(jMenuPagamentos);
@@ -105,12 +111,33 @@ public class Main extends javax.swing.JFrame {
 
     private void jMenuItemEmpregadoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEmpregadoAdicionarActionPerformed
         // TODO add your handling code here:
-        AdicionarEmpregado novo = new AdicionarEmpregado();
-        
-        novo.setVisible(true);
-        this.setContentPane(novo);       
+        CreateEmployee createEmployee = new CreateEmployee();
+
+        //novo.setVisible(true);
+        this.setContentPane(createEmployee);
+        this.repaint();
 
     }//GEN-LAST:event_jMenuItemEmpregadoAdicionarActionPerformed
+
+    private void jMenuItemEmpregadoModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemEmpregadoModificarActionPerformed
+        // TODO add your handling code here:
+        ModifyEmployee modifyEmployee = new ModifyEmployee();
+
+        //novo.setVisible(true);
+        this.setContentPane(modifyEmployee);
+        this.pack();
+        this.repaint();
+    }//GEN-LAST:event_jMenuItemEmpregadoModificarActionPerformed
+
+    private void jMenuItemPagamentosAgendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagamentosAgendasActionPerformed
+        // TODO add your handling code here:
+        CreateSchedule createSchedule = new CreateSchedule();
+
+        //novo.setVisible(true);        
+        this.setContentPane(createSchedule);
+        pack();
+        this.repaint();
+    }//GEN-LAST:event_jMenuItemPagamentosAgendasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,7 +179,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuEmpregados;
     private javax.swing.JMenuItem jMenuItemEmpregadoAdicionar;
     private javax.swing.JMenuItem jMenuItemEmpregadoModificar;
-    private javax.swing.JMenuItem jMenuItemEmpregadoRemover;
     private javax.swing.JMenuItem jMenuItemLancamentosPonto;
     private javax.swing.JMenuItem jMenuItemLancamentosServicos;
     private javax.swing.JMenuItem jMenuItemLancamentosVenda;
