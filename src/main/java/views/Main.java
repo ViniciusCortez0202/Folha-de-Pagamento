@@ -115,6 +115,7 @@ public class Main extends javax.swing.JFrame {
 
         //novo.setVisible(true);
         this.setContentPane(createEmployee);
+        this.pack();
         this.repaint();
 
     }//GEN-LAST:event_jMenuItemEmpregadoAdicionarActionPerformed
