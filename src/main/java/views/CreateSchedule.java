@@ -29,8 +29,8 @@ public class CreateSchedule extends javax.swing.JPanel {
 
         jLabelNome = new javax.swing.JLabel();
         jLabelCondicao = new javax.swing.JLabel();
-        jTextFieldNomeAgenda = new javax.swing.JTextField();
-        jFormattedTextFieldAgenda = new javax.swing.JFormattedTextField();
+        jTextFieldName = new javax.swing.JTextField();
+        jFormattedTextFieldSchedule = new javax.swing.JFormattedTextField();
         jButtonAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableSchendule = new javax.swing.JTable();
@@ -40,7 +40,7 @@ public class CreateSchedule extends javax.swing.JPanel {
         jLabelCondicao.setText("Condição:");
 
         try {
-            jFormattedTextFieldAgenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##")));
+            jFormattedTextFieldSchedule.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -78,13 +78,13 @@ public class CreateSchedule extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelNome)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextFieldNomeAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabelCondicao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonAdd)
-                            .addComponent(jFormattedTextFieldAgenda))))
+                            .addComponent(jFormattedTextFieldSchedule))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
@@ -97,11 +97,11 @@ public class CreateSchedule extends javax.swing.JPanel {
                         .addGap(85, 85, 85)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelNome)
-                            .addComponent(jTextFieldNomeAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelCondicao)
-                            .addComponent(jFormattedTextFieldAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jFormattedTextFieldSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(75, 75, 75)
                         .addComponent(jButtonAdd))
                     .addGroup(layout.createSequentialGroup()
@@ -114,11 +114,11 @@ public class CreateSchedule extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;
-    private javax.swing.JFormattedTextField jFormattedTextFieldAgenda;
+    private javax.swing.JFormattedTextField jFormattedTextFieldSchedule;
     private javax.swing.JLabel jLabelCondicao;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableSchendule;
-    private javax.swing.JTextField jTextFieldNomeAgenda;
+    private javax.swing.JTextField jTextFieldName;
     // End of variables declaration//GEN-END:variables
 }

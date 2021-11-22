@@ -15,12 +15,23 @@ public class AddressEntity {
     private String district;
     private String city;
     private String states;
+    private String CEP;
 
     public AddressEntity(String address, String number, String district) {
         this.address = address;
         this.number = number;
         this.district = district;
     }
+
+    public AddressEntity(String address, String number, String district, String city, String states, String CEP) {
+        this.address = address;
+        this.number = number;
+        this.district = district;
+        this.city = city;
+        this.states = states;
+        this.CEP = CEP;
+    }
+    
 
     public String getAddress() {
         return address;
@@ -44,6 +55,30 @@ public class AddressEntity {
 
     public void setDistrict(String district) {
         this.district = district;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStates() {
+        return states;
+    }
+
+    public void setStates(String states) {
+        this.states = states;
+    }
+
+    public String getCEP() {
+        return CEP;
+    }
+
+    public void setCEP(String CEP) {
+        this.CEP = CEP;
     }
 
     

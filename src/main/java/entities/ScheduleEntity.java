@@ -5,19 +5,19 @@
  */
 package entities;
 
+import java.util.Date;
+
 /**
  *
  * @author Vinicius
  */
-public abstract class EmployeeEntity {
-    
+public class ScheduleEntity {
     private String name;
-    private AddressEntity address;
+    private Date schedule;
 
-
-    public EmployeeEntity(String name, AddressEntity address) {
+    public ScheduleEntity(String name, Date schedule) {
         this.name = name;
-        this.address = address;
+        this.schedule = schedule;
     }
 
     public String getName() {
@@ -28,11 +28,13 @@ public abstract class EmployeeEntity {
         this.name = name;
     }
 
-    public AddressEntity getAddress() {
-        return address;
+    public Date getSchedule() {
+        return schedule;
     }
 
-    public void setAddress(AddressEntity address) {
-        this.address = address;
+    public void setSchedule(Date schedule) {
+        this.schedule = schedule;
     }
+    
+    
 }

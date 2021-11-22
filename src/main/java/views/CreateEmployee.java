@@ -5,6 +5,12 @@
  */
 package views;
 
+import entities.AddressEntity;
+import entities.CommissionedEntity;
+import entities.EmployeeEntity;
+import entities.HourlyEntity;
+import entities.SalariedEntity;
+
 /**
  *
  * @author Vinicius
@@ -41,7 +47,7 @@ public class CreateEmployee extends javax.swing.JPanel {
         jButtonSalvar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jButtonReset = new javax.swing.JButton();
-        jTextFieldNome = new javax.swing.JTextField();
+        jTextFieldName = new javax.swing.JTextField();
         jFormattedTextFieldCEP = new javax.swing.JFormattedTextField();
         jTextFieldBairro = new javax.swing.JTextField();
         jTextFieldCidade = new javax.swing.JTextField();
@@ -81,6 +87,11 @@ public class CreateEmployee extends javax.swing.JPanel {
         });
 
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButtonCancelar.setText("Cancelar");
 
@@ -133,7 +144,7 @@ public class CreateEmployee extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelNome)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldNome))
+                                .addComponent(jTextFieldName))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelCEP)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -179,7 +190,7 @@ public class CreateEmployee extends javax.swing.JPanel {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelNome)
-                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCEP)
@@ -241,6 +252,37 @@ public class CreateEmployee extends javax.swing.JPanel {
         this.jFormattedTextFieldComissao.setText("R$ " + value);
     }//GEN-LAST:event_jFormattedTextFieldComissaoFocusLost
 
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        // TODO add your handling code here:
+        int barCity = this.jTextFieldCidade.getText().indexOf("/");
+        AddressEntity addressEmployee = new AddressEntity(this.jTextFieldLogradouro.getText(),
+                this.jTextFieldNumero.getText(),
+                this.jTextFieldBairro.getText(),
+                this.jTextFieldCidade.getText().substring(0, barCity - 1),
+                this.jTextFieldCidade.getText().substring(barCity,
+                        this.jTextFieldCidade.getText().length()),
+                this.jFormattedTextFieldCEP.getText());
+        String typeEmployee = this.jComboBoxTipo.getItemAt(0);
+        if (typeEmployee == "comissionado") {
+
+            CommissionedEntity newEmployee = new CommissionedEntity(
+                    this.jFormattedTextFieldComissao.getText(),
+                    this.jTextFieldName.getText(),
+                    addressEmployee);
+        } else if (typeEmployee == "horista") {
+            HourlyEntity newEmployee = new HourlyEntity(
+                    this.jFormattedTextFieldHoraTrabalho.getText(),
+                    this.jTextFieldName.getText(),
+                    addressEmployee);
+        } else if (typeEmployee == "assalariado") {
+            SalariedEntity newEmployee = new SalariedEntity(
+                    this.jFormattedTextFieldSalario.getText(),
+                    this.jTextFieldName.getText(),
+                    addressEmployee);
+        }
+
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
@@ -264,7 +306,7 @@ public class CreateEmployee extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldBairro;
     private javax.swing.JTextField jTextFieldCidade;
     private javax.swing.JTextField jTextFieldLogradouro;
-    private javax.swing.JTextField jTextFieldNome;
+    private javax.swing.JTextField jTextFieldName;
     private javax.swing.JTextField jTextFieldNumero;
     // End of variables declaration//GEN-END:variables
 }
