@@ -46,10 +46,7 @@ public class AddRateService extends javax.swing.JPanel {
 
         jTableServicesEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Serviço", "Taxa", "Descrição", "Title 4"

@@ -5,17 +5,21 @@
  */
 package views;
 
+import controllers.ServiceController;
+import entities.ServiceEntity;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Vinicius
  */
-public class CreateService extends javax.swing.JFrame {
+public class CreateService extends javax.swing.JPanel {
 
     /**
-     * Creates new form CreateService
+     * Creates new form CreateService1
      */
     public CreateService() {
-        initComponents();
+        initComponents();        
     }
 
     /**
@@ -32,16 +36,12 @@ public class CreateService extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDescription = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldRate = new javax.swing.JTextField();
         jTextFieldNameService = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableServices = new javax.swing.JTable();
         jButtonAdd = new javax.swing.JButton();
         jButtonClear = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setName("frameNewService"); // NOI18N
-        setResizable(false);
+        jFormattedTextFieldRate = new javax.swing.JFormattedTextField();
 
         jLabelNameService.setText("Nome do Serviço:");
 
@@ -55,17 +55,14 @@ public class CreateService extends javax.swing.JFrame {
 
         jTableServices.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Nome Serviço", "Taxa", "Descrição", "Title 4"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, true, false, false
@@ -82,11 +79,26 @@ public class CreateService extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTableServices);
 
         jButtonAdd.setText("Adicionar");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
 
         jButtonClear.setText("Limpar");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        jFormattedTextFieldRate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("R$ #,##0.00"))));
+        jFormattedTextFieldRate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jFormattedTextFieldRateFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jFormattedTextFieldRateFocusLost(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -105,13 +117,13 @@ public class CreateService extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jScrollPane1)
-                                .addComponent(jTextFieldRate, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jFormattedTextFieldRate))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButtonClear)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonAdd)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -125,8 +137,8 @@ public class CreateService extends javax.swing.JFrame {
                             .addComponent(jTextFieldNameService, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelRate))
+                            .addComponent(jLabelRate)
+                            .addComponent(jFormattedTextFieldRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -136,17 +148,46 @@ public class CreateService extends javax.swing.JFrame {
                             .addComponent(jButtonAdd)
                             .addComponent(jButtonClear))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+        // TODO add your handling code here:
+        String rateString = this.jFormattedTextFieldRate.getText()
+                            .substring(2)
+                            .replace(",", ".");
+        ServiceEntity newService = new ServiceEntity(
+            this.jTextFieldNameService.getText(),
+            Double.parseDouble(rateString),
+            this.jTextAreaDescription.getText()
+        );
+        ServiceController controller = new ServiceController();
+
+        if(!controller.createService(newService)){
+            JOptionPane.showMessageDialog(null, "Por Favor, preencha todos os campos", "Vazio!", JOptionPane.ERROR);
+        } else {
+            controller.addListService(newService, this.jTableServices);
+        }
+    }//GEN-LAST:event_jButtonAddActionPerformed
+
+    private void jFormattedTextFieldRateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldRateFocusLost
+        // TODO add your handling code here:
+        String value = this.jFormattedTextFieldRate.getText();
+        this.jFormattedTextFieldRate.setText("R$ " + value);
+    }//GEN-LAST:event_jFormattedTextFieldRateFocusLost
+
+    private void jFormattedTextFieldRateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldRateFocusGained
+        // TODO add your handling code here:
+        this.jFormattedTextFieldRate.setText("");
+    }//GEN-LAST:event_jFormattedTextFieldRateFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonClear;
+    private javax.swing.JFormattedTextField jFormattedTextFieldRate;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelNameService;
     private javax.swing.JLabel jLabelRate;
@@ -155,6 +196,5 @@ public class CreateService extends javax.swing.JFrame {
     private javax.swing.JTable jTableServices;
     private javax.swing.JTextArea jTextAreaDescription;
     private javax.swing.JTextField jTextFieldNameService;
-    private javax.swing.JTextField jTextFieldRate;
     // End of variables declaration//GEN-END:variables
 }

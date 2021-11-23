@@ -12,10 +12,10 @@ import repositories.EmployeeRepositoriy;
  *
  * @author Vinicius
  */
-public class CreateEmployeeController {
+public class EmployeeController {
     
     public boolean createEmployee(EmployeeEntity newEmployee){
-        
+        if(newEmployee == null) return false;
         EmployeeRepositoriy repository = new EmployeeRepositoriy();
         
         repository.insertEmployee(newEmployee);

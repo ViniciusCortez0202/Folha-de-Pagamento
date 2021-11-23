@@ -83,6 +83,11 @@ public class Main extends javax.swing.JFrame {
         jMenuLancamentos.setText("Lançamentos");
 
         jMenuItemLancamentosServicos.setText("Serviços");
+        jMenuItemLancamentosServicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLancamentosServicosActionPerformed(evt);
+            }
+        });
         jMenuLancamentos.add(jMenuItemLancamentosServicos);
 
         jMenuItemLancamentosPonto.setText("Cartão de Ponto");
@@ -139,6 +144,16 @@ public class Main extends javax.swing.JFrame {
         pack();
         this.repaint();
     }//GEN-LAST:event_jMenuItemPagamentosAgendasActionPerformed
+
+    private void jMenuItemLancamentosServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLancamentosServicosActionPerformed
+        // TODO add your handling code here:
+        CreateService createService = new CreateService();
+ 
+        //createService.setVisible(true);
+        this.setContentPane(createService);
+        pack();
+        this.repaint();
+    }//GEN-LAST:event_jMenuItemLancamentosServicosActionPerformed
 
     /**
      * @param args the command line arguments

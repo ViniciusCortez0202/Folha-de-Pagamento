@@ -5,11 +5,13 @@
  */
 package views;
 
+import controllers.EmployeeController;
 import entities.AddressEntity;
 import entities.CommissionedEntity;
 import entities.EmployeeEntity;
 import entities.HourlyEntity;
 import entities.SalariedEntity;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -263,24 +265,31 @@ public class CreateEmployee extends javax.swing.JPanel {
                         this.jTextFieldCidade.getText().length()),
                 this.jFormattedTextFieldCEP.getText());
         String typeEmployee = this.jComboBoxTipo.getItemAt(0);
-        if (typeEmployee == "comissionado") {
+        EmployeeEntity newEmployee = null;
+        if (typeEmployee.equals("comissionado")) {
 
-            CommissionedEntity newEmployee = new CommissionedEntity(
+            newEmployee = new CommissionedEntity(
                     this.jFormattedTextFieldComissao.getText(),
                     this.jTextFieldName.getText(),
                     addressEmployee);
-        } else if (typeEmployee == "horista") {
-            HourlyEntity newEmployee = new HourlyEntity(
+        } else if (typeEmployee.equals("horista")) {
+            newEmployee = new HourlyEntity(
                     this.jFormattedTextFieldHoraTrabalho.getText(),
                     this.jTextFieldName.getText(),
                     addressEmployee);
-        } else if (typeEmployee == "assalariado") {
-            SalariedEntity newEmployee = new SalariedEntity(
+        } else if (typeEmployee.equals("assalariado")) {
+            newEmployee = new SalariedEntity(
                     this.jFormattedTextFieldSalario.getText(),
                     this.jTextFieldName.getText(),
                     addressEmployee);
         }
-
+        EmployeeController controller = new EmployeeController();
+        if(!controller.createEmployee(newEmployee)){
+            JOptionPane.showMessageDialog(null, "Por Favor, preencha todos os campos", "Vazio!", JOptionPane.ERROR);
+        } else {
+            //this.getRootPane();
+            
+        }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
 
