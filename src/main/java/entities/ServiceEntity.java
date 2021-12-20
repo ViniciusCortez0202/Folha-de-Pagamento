@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author Vinicius
@@ -13,14 +15,17 @@ public class ServiceEntity {
     private String name;
     private double rate;
     private String description;
+    private boolean activate;
 
     public ServiceEntity(String name, double rate, String description) {
+        this.activate = true;
         this.name = name;
         this.rate = rate;
         this.description = description;
     }
 
     public ServiceEntity() {
+        this.activate = true;
     }
 
     public String getName() {
@@ -45,6 +50,39 @@ public class ServiceEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isActivate() {
+        return activate;
+    }
+
+    public void setActivate(boolean activate) {
+        this.activate = activate;
+    }    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ServiceEntity other = (ServiceEntity) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
     }
     
     

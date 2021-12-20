@@ -8,6 +8,7 @@ package views;
 import controllers.ServiceController;
 import entities.ServiceEntity;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,7 +20,9 @@ public class CreateService extends javax.swing.JPanel {
      * Creates new form CreateService1
      */
     public CreateService() {
-        initComponents();        
+        initComponents();
+        ServiceController controller = new ServiceController();
+        controller.getAllServices(this.jTableServices);
     }
 
     /**
@@ -42,6 +45,9 @@ public class CreateService extends javax.swing.JPanel {
         jButtonAdd = new javax.swing.JButton();
         jButtonClear = new javax.swing.JButton();
         jFormattedTextFieldRate = new javax.swing.JFormattedTextField();
+        jButtonModify = new javax.swing.JButton();
+        jButtonDelete = new javax.swing.JButton();
+        jButtonUndo = new javax.swing.JButton();
 
         jLabelNameService.setText("Nome do Serviço:");
 
@@ -58,14 +64,14 @@ public class CreateService extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nome Serviço", "Taxa", "Descrição", "Title 4"
+                "Nome Serviço", "Taxa", "Descrição"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -76,7 +82,16 @@ public class CreateService extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTableServices.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableServicesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTableServices);
+        if (jTableServices.getColumnModel().getColumnCount() > 0) {
+            jTableServices.getColumnModel().getColumn(1).setResizable(false);
+            jTableServices.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jButtonAdd.setText("Adicionar");
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -86,6 +101,11 @@ public class CreateService extends javax.swing.JPanel {
         });
 
         jButtonClear.setText("Limpar");
+        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClearActionPerformed(evt);
+            }
+        });
 
         jFormattedTextFieldRate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("R$ #,##0.00"))));
         jFormattedTextFieldRate.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -97,6 +117,30 @@ public class CreateService extends javax.swing.JPanel {
             }
         });
 
+        jButtonModify.setVisible(false);
+        jButtonModify.setText("Modificar");
+        jButtonModify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModifyActionPerformed(evt);
+            }
+        });
+
+        jButtonDelete.setVisible(false);
+        jButtonDelete.setText("Excluir");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
+
+        jButtonUndo.setVisible(false);
+        jButtonUndo.setText("UNDO");
+        jButtonUndo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUndoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,24 +148,30 @@ public class CreateService extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabelNameService)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabelNameService)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldNameService, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(42, 42, 42)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabelRate))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jFormattedTextFieldRate))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButtonClear)
+                                .addComponent(jButtonModify))
                             .addGap(18, 18, 18)
-                            .addComponent(jTextFieldNameService, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(42, 42, 42)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabelRate))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jScrollPane1)
-                                .addComponent(jFormattedTextFieldRate))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonClear)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonAdd)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButtonAdd)
+                                .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jButtonUndo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
                 .addContainerGap())
@@ -147,7 +197,12 @@ public class CreateService extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonAdd)
                             .addComponent(jButtonClear))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonModify)
+                            .addComponent(jButtonDelete))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonUndo))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -155,20 +210,27 @@ public class CreateService extends javax.swing.JPanel {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
-        String rateString = this.jFormattedTextFieldRate.getText()
-                            .substring(2)
-                            .replace(",", ".");
+
+        String rateString = this.jFormattedTextFieldRate.getText();
+        if (!rateString.isEmpty()) {
+            rateString = rateString.substring(2)
+                    .replace(",", ".");
+        } else {
+            JOptionPane.showMessageDialog(null, "Por Favor, preencha todos os campos", "Vazio!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         ServiceEntity newService = new ServiceEntity(
-            this.jTextFieldNameService.getText(),
-            Double.parseDouble(rateString),
-            this.jTextAreaDescription.getText()
+                this.jTextFieldNameService.getText(),
+                Double.parseDouble(rateString),
+                this.jTextAreaDescription.getText()
         );
         ServiceController controller = new ServiceController();
 
-        if(!controller.createService(newService)){
-            JOptionPane.showMessageDialog(null, "Por Favor, preencha todos os campos", "Vazio!", JOptionPane.ERROR);
+        if (!controller.createService(newService)) {
+            JOptionPane.showMessageDialog(null, "Por Favor, preencha todos os campos", "Vazio!", JOptionPane.ERROR_MESSAGE);
         } else {
             controller.addListService(newService, this.jTableServices);
+            clear();
         }
     }//GEN-LAST:event_jButtonAddActionPerformed
 
@@ -183,10 +245,114 @@ public class CreateService extends javax.swing.JPanel {
         this.jFormattedTextFieldRate.setText("");
     }//GEN-LAST:event_jFormattedTextFieldRateFocusGained
 
+    private void jTableServicesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableServicesMouseClicked
+        // TODO add your handling code here:
+        int row = this.jTableServices.getSelectedRow();
+
+        String name = this.jTableServices.getValueAt(row, 0).toString();
+        String rate = this.jTableServices.getValueAt(row, 1).toString();
+        String description = this.jTableServices.getValueAt(row, 2).toString();
+
+        this.jTextFieldNameService.setText(name);
+        this.jTextAreaDescription.setText(description);
+        this.jFormattedTextFieldRate.setText("R$ " + rate);
+        this.jButtonAdd.setVisible(false);
+        this.jButtonModify.setVisible(true);
+        this.jButtonDelete.setVisible(true);
+    }//GEN-LAST:event_jTableServicesMouseClicked
+
+    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
+        // TODO add your handling code here:     
+        clear();
+
+    }//GEN-LAST:event_jButtonClearActionPerformed
+
+    private void clear() {
+        this.jTextFieldNameService.setText("");
+        this.jTextAreaDescription.setText("");
+        this.jFormattedTextFieldRate.setText("");
+        this.jButtonAdd.setVisible(true);
+        this.jButtonModify.setVisible(false);
+        this.jButtonDelete.setVisible(false);
+        this.jTableServices.clearSelection();
+    }
+
+    private void jButtonModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifyActionPerformed
+        // TODO add your handling code here:
+        int row = this.jTableServices.getSelectedRow();
+
+        String name = this.jTableServices.getValueAt(row, 0).toString();
+        String rate = this.jTableServices.getValueAt(row, 1).toString().replace(",", ".");
+        String description = this.jTableServices.getValueAt(row, 2).toString();
+
+        String rateString = this.jFormattedTextFieldRate.getText();
+        if (!rateString.isEmpty()) {
+            rateString = rateString.substring(2)
+                    .replace(",", ".");
+        } else {
+            JOptionPane.showMessageDialog(null, "Por Favor, preencha todos os campos", "Vazio!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        ServiceEntity newService = new ServiceEntity(
+                this.jTextFieldNameService.getText(),
+                Double.parseDouble(rateString),
+                this.jTextAreaDescription.getText()
+        );
+
+        ServiceEntity oldService = new ServiceEntity(
+                name,
+                Double.parseDouble(rate),
+                description
+        );
+
+        ServiceController controller = new ServiceController();
+
+        if (!controller.updateService(oldService, newService, this.jTableServices)) {
+            JOptionPane.showMessageDialog(null, "Por Favor, preencha todos os campos", "Vazio!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            clear();
+        }
+
+
+    }//GEN-LAST:event_jButtonModifyActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        // TODO add your handling code here:
+        int row = this.jTableServices.getSelectedRow();
+        String name = this.jTableServices.getValueAt(row, 0).toString();
+        String rate = this.jTableServices.getValueAt(row, 1).toString().replace(",", ".");
+        String description = this.jTableServices.getValueAt(row, 2).toString();
+
+        ServiceEntity service = new ServiceEntity(
+                name,
+                Double.parseDouble(rate),
+                description
+        );
+
+        ServiceController controller = new ServiceController();
+        controller.deleteService(service, this.jTableServices);
+        clear();
+        this.jButtonUndo.setVisible(true);
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jButtonUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUndoActionPerformed
+        // TODO add your handling code here:
+        ServiceController controller = new ServiceController();
+        controller.undo();
+        this.jButtonUndo.setVisible(false);        
+        DefaultTableModel df = (DefaultTableModel) this.jTableServices.getModel();
+        df.getDataVector().removeAllElements();
+        controller.getAllServices(this.jTableServices);
+    }//GEN-LAST:event_jButtonUndoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonClear;
+    private javax.swing.JButton jButtonDelete;
+    private javax.swing.JButton jButtonModify;
+    private javax.swing.JButton jButtonUndo;
     private javax.swing.JFormattedTextField jFormattedTextFieldRate;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelNameService;

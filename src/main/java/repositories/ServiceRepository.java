@@ -8,16 +8,54 @@ package repositories;
 import entities.ServiceEntity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  *
  * @author Vinicius
  */
-public class ServiceRepository {
-    private final List<ServiceEntity> service = new ArrayList();
+public class ServiceRepository implements IState{
+    private final static List<ServiceEntity> service = new ArrayList();
+    private final static Stack<ServiceEntity> undo = new Stack();
+    private final static Stack<ServiceEntity> redo = new Stack();
     
     public void insertService(ServiceEntity newServiceEntity){
-        this.service.add(newServiceEntity);
+        ServiceRepository.service.add(newServiceEntity);
     }
+    
+    public List<ServiceEntity>getAll(){
+        List<ServiceEntity> all = new ArrayList();
+        ServiceRepository.service.stream().filter((serviceEntity) -> 
+                (serviceEntity.isActivate())).forEachOrdered((serviceEntity) -> {
+            all.add(serviceEntity);
+        });
+        return all;
+    }
+    
+    public void updateServiceforName(int index, ServiceEntity service){
+        ServiceRepository.service.set(index, service);
+    }
+    
+    public void delete(ServiceEntity service){
+        int index = ServiceRepository.service.indexOf(service);
+        ServiceRepository.service.get(index).setActivate(false);
+    }
+
+    @Override
+    public void addUndo(ServiceEntity service) {
+        ServiceRepository.undo.add(service);
+    }
+    
+    public ServiceEntity get(){
+        return ServiceRepository.undo.pop();
+    }
+
+    @Override
+    public void undo() {
+        ServiceEntity serviceEntity = ServiceRepository.undo.pop();
+        int index = ServiceRepository.service.indexOf(serviceEntity);
+        ServiceRepository.service.get(index).setActivate(true);
+    }
+    
         
 }
