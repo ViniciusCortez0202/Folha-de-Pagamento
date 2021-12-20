@@ -5,6 +5,8 @@
  */
 package views;
 
+import controllers.EmployeeController;
+
 /**
  *
  * @author Vinicius
@@ -16,6 +18,8 @@ public class ModifyEmployee extends javax.swing.JPanel {
      */
     public ModifyEmployee() {
         initComponents();
+        EmployeeController controller = new EmployeeController();
+        controller.getAll(jTableModificar);
     }
 
     /**
@@ -39,14 +43,14 @@ public class ModifyEmployee extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Código", "Nome", "Endereço", "Tipo", "Salário Mensal", "Salário Hora", "Comissão "
+                "Nome", "Endereço", "Tipo", "Salário Mensal", "Salário Hora", "Comissão "
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false, true, true, true, true
+                false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -58,6 +62,14 @@ public class ModifyEmployee extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTableModificar);
+        if (jTableModificar.getColumnModel().getColumnCount() > 0) {
+            jTableModificar.getColumnModel().getColumn(0).setResizable(false);
+            jTableModificar.getColumnModel().getColumn(1).setResizable(false);
+            jTableModificar.getColumnModel().getColumn(2).setResizable(false);
+            jTableModificar.getColumnModel().getColumn(3).setResizable(false);
+            jTableModificar.getColumnModel().getColumn(4).setResizable(false);
+            jTableModificar.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         jLabelSearch.setText("Pesquisa:");
 

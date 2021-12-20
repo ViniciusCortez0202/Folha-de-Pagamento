@@ -14,7 +14,7 @@ import java.util.Stack;
  *
  * @author Vinicius
  */
-public class ServiceRepository implements IState{
+public class ServiceRepository implements IState<ServiceEntity>{
     private final static List<ServiceEntity> service = new ArrayList();
     private final static Stack<ServiceEntity> undo = new Stack();
     private final static Stack<ServiceEntity> redo = new Stack();
@@ -36,8 +36,8 @@ public class ServiceRepository implements IState{
         ServiceRepository.service.set(index, service);
     }
     
-    public void delete(ServiceEntity service){
-        int index = ServiceRepository.service.indexOf(service);
+    public void delete(ServiceEntity obj){
+        int index = ServiceRepository.service.indexOf(obj);
         ServiceRepository.service.get(index).setActivate(false);
     }
 

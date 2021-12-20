@@ -11,8 +11,8 @@ import entities.ServiceEntity;
  *
  * @author Vinicius
  */
-public interface IState {
-    public void addUndo(ServiceEntity service);
+public interface IState<T> {
+    public void addUndo(T obj);
     public void undo();
     
 }

@@ -12,6 +12,7 @@ import entities.EmployeeEntity;
 import entities.HourlyEntity;
 import entities.SalariedEntity;
 import javax.swing.JOptionPane;
+import utils.TypeEmployEnum;
 
 /**
  *
@@ -47,8 +48,7 @@ public class CreateEmployee extends javax.swing.JPanel {
         jLabelComissao = new javax.swing.JLabel();
         jComboBoxTipo = new javax.swing.JComboBox<>();
         jButtonSalvar = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
-        jButtonReset = new javax.swing.JButton();
+        jButtonDelete = new javax.swing.JButton();
         jTextFieldName = new javax.swing.JTextField();
         jFormattedTextFieldCEP = new javax.swing.JFormattedTextField();
         jTextFieldBairro = new javax.swing.JTextField();
@@ -75,13 +75,22 @@ public class CreateEmployee extends javax.swing.JPanel {
 
         jLabelCidade.setText("Cidade/UF:");
 
+        jLabelHoraTrabalho.setVisible(false);
         jLabelHoraTrabalho.setText("Valor Hora");
 
+        jLabelSalario.setVisible(false);
         jLabelSalario.setText("Salário:");
 
+        jLabelComissao.setVisible(false);
         jLabelComissao.setText("Comissão:");
 
-        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { TypeEmployEnum.Commissionaed.getType(), TypeEmployEnum.Salaried.getType(), TypeEmployEnum.Hourly.getType() }));
+        jComboBoxTipo.setSelectedIndex(-1);
+        jComboBoxTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxTipoItemStateChanged(evt);
+            }
+        });
         jComboBoxTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxTipoActionPerformed(evt);
@@ -95,9 +104,14 @@ public class CreateEmployee extends javax.swing.JPanel {
             }
         });
 
-        jButtonCancelar.setText("Cancelar");
+        jButtonDelete.setText("Limpar");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
 
-        jButtonReset.setText("Reset");
+        jTextFieldName.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         try {
             jFormattedTextFieldCEP.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###-###")));
@@ -105,6 +119,7 @@ public class CreateEmployee extends javax.swing.JPanel {
             ex.printStackTrace();
         }
 
+        jFormattedTextFieldHoraTrabalho.setVisible(false);
         jFormattedTextFieldHoraTrabalho.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("R$ #,##0.00"))));
         jFormattedTextFieldHoraTrabalho.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -112,6 +127,7 @@ public class CreateEmployee extends javax.swing.JPanel {
             }
         });
 
+        jFormattedTextFieldSalario.setVisible(false);
         jFormattedTextFieldSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("R$ #,##0.00"))));
         jFormattedTextFieldSalario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -119,7 +135,8 @@ public class CreateEmployee extends javax.swing.JPanel {
             }
         });
 
-        jFormattedTextFieldComissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("R$ #,##0.00"))));
+        jFormattedTextFieldComissao.setVisible(false);
+        jFormattedTextFieldComissao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getPercentInstance())));
         jFormattedTextFieldComissao.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jFormattedTextFieldComissaoFocusLost(evt);
@@ -158,7 +175,7 @@ public class CreateEmployee extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabelCidade)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE))
+                                .addComponent(jTextFieldCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
@@ -178,10 +195,8 @@ public class CreateEmployee extends javax.swing.JPanel {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButtonReset)
+                        .addComponent(jButtonDelete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonCancelar)
-                        .addGap(37, 37, 37)
                         .addComponent(jButtonSalvar)
                         .addGap(11, 11, 11)))
                 .addContainerGap())
@@ -189,10 +204,10 @@ public class CreateEmployee extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelNome)
-                    .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCEP)
@@ -223,11 +238,10 @@ public class CreateEmployee extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelComissao)
                     .addComponent(jFormattedTextFieldComissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
-                    .addComponent(jButtonCancelar)
-                    .addComponent(jButtonReset))
+                    .addComponent(jButtonDelete))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -251,7 +265,7 @@ public class CreateEmployee extends javax.swing.JPanel {
     private void jFormattedTextFieldComissaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldComissaoFocusLost
         // TODO add your handling code here:
         String value = this.jFormattedTextFieldComissao.getText();
-        this.jFormattedTextFieldComissao.setText("R$ " + value);
+        this.jFormattedTextFieldComissao.setText(value+"%");
     }//GEN-LAST:event_jFormattedTextFieldComissaoFocusLost
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
@@ -264,38 +278,84 @@ public class CreateEmployee extends javax.swing.JPanel {
                 this.jTextFieldCidade.getText().substring(barCity,
                         this.jTextFieldCidade.getText().length()),
                 this.jFormattedTextFieldCEP.getText());
-        String typeEmployee = this.jComboBoxTipo.getItemAt(0);
+        String typeEmployee = (String) this.jComboBoxTipo.getSelectedItem();
+
         EmployeeEntity newEmployee = null;
-        if (typeEmployee.equals("comissionado")) {
+        if (TypeEmployEnum.Commissionaed.getType().equals(typeEmployee)) {
 
             newEmployee = new CommissionedEntity(
                     this.jFormattedTextFieldComissao.getText(),
-                    this.jTextFieldName.getText(),
+                    this.jFormattedTextFieldSalario.getText(),
+                    this.jTextFieldName.getText(),                    
                     addressEmployee);
-        } else if (typeEmployee.equals("horista")) {
+        } else if (TypeEmployEnum.Hourly.getType().equals(typeEmployee)) {
             newEmployee = new HourlyEntity(
                     this.jFormattedTextFieldHoraTrabalho.getText(),
                     this.jTextFieldName.getText(),
                     addressEmployee);
-        } else if (typeEmployee.equals("assalariado")) {
+        } else if (TypeEmployEnum.Salaried.getType().equals(typeEmployee)) {
             newEmployee = new SalariedEntity(
                     this.jFormattedTextFieldSalario.getText(),
                     this.jTextFieldName.getText(),
                     addressEmployee);
         }
         EmployeeController controller = new EmployeeController();
-        if(!controller.createEmployee(newEmployee)){
+        if (!controller.createEmployee(newEmployee)) {
             JOptionPane.showMessageDialog(null, "Por Favor, preencha todos os campos", "Vazio!", JOptionPane.ERROR);
         } else {
-            //this.getRootPane();
-            
+            clear();
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
+    private void jComboBoxTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxTipoItemStateChanged
+        // TODO add your handling code here:
+
+        this.jLabelHoraTrabalho.setVisible(false);
+        this.jLabelSalario.setVisible(false);
+        this.jLabelComissao.setVisible(false);
+        this.jFormattedTextFieldHoraTrabalho.setVisible(false);
+        this.jFormattedTextFieldSalario.setVisible(false);
+        this.jFormattedTextFieldComissao.setVisible(false);
+
+        String typeEmployee = (String) this.jComboBoxTipo.getSelectedItem();
+        if (TypeEmployEnum.Commissionaed.getType().equals(typeEmployee)) {
+
+            this.jFormattedTextFieldComissao.setVisible(true);
+            this.jFormattedTextFieldSalario.setVisible(true);
+            this.jLabelComissao.setVisible(true);
+            this.jLabelSalario.setVisible(true);
+        } else if (TypeEmployEnum.Hourly.getType().equals(typeEmployee)) {
+            this.jFormattedTextFieldHoraTrabalho.setVisible(true);
+            this.jLabelHoraTrabalho.setVisible(true);
+        } else if (TypeEmployEnum.Salaried.getType().equals(typeEmployee)) {
+            this.jFormattedTextFieldSalario.setVisible(true);
+            this.jLabelSalario.setVisible(true);
+        }
+    }//GEN-LAST:event_jComboBoxTipoItemStateChanged
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        // TODO add your handling code here:
+        clear();
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void clear() {
+        this.jLabelHoraTrabalho.setVisible(false);
+        this.jLabelSalario.setVisible(false);
+        this.jLabelComissao.setVisible(false);
+        this.jFormattedTextFieldHoraTrabalho.setVisible(false);
+        this.jFormattedTextFieldSalario.setVisible(false);
+        this.jFormattedTextFieldComissao.setVisible(false);
+        this.jComboBoxTipo.setSelectedIndex(-1);
+        this.jTextFieldName.setText("");
+        this.jFormattedTextFieldCEP.setText("");
+        this.jTextFieldBairro.setText("");
+        this.jTextFieldCidade.setText("");
+        this.jTextFieldLogradouro.setText("");
+        this.jTextFieldNumero.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonCancelar;
-    private javax.swing.JButton jButtonReset;
+    private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JFormattedTextField jFormattedTextFieldCEP;

@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author Vinicius
@@ -79,6 +81,35 @@ public class AddressEntity {
 
     public void setCEP(String CEP) {
         this.CEP = CEP;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.number);
+        hash = 53 * hash + Objects.hashCode(this.CEP);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AddressEntity other = (AddressEntity) obj;
+        if (!Objects.equals(this.number, other.number)) {
+            return false;
+        }
+        if (!Objects.equals(this.CEP, other.CEP)) {
+            return false;
+        }
+        return true;
     }
 
     
