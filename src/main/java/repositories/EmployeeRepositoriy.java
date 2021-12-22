@@ -35,15 +35,15 @@ public class EmployeeRepositoriy implements IState<EmployeeEntity> {
         return all;
     }
 
-    public void updateforName(int index, EmployeeEntity obj){
+    public void updateforCPF(int index, EmployeeEntity obj) {
         EmployeeRepositoriy.employee.set(index, obj);
     }
-    
-    public void delete(EmployeeEntity obj){
+
+    public void delete(EmployeeEntity obj) {
         int index = EmployeeRepositoriy.employee.indexOf(obj);
-        EmployeeRepositoriy.employee.get(index).setActivate(false);        
+        EmployeeRepositoriy.employee.get(index).setActivate(false);
     }
-    
+
     @Override
     public void addUndo(EmployeeEntity obj) {
         EmployeeRepositoriy.undo.add(obj);
@@ -51,9 +51,21 @@ public class EmployeeRepositoriy implements IState<EmployeeEntity> {
 
     @Override
     public void undo() {
-        EmployeeEntity employeeEntity = EmployeeRepositoriy.undo.pop();
-        int index = EmployeeRepositoriy.employee.indexOf(employeeEntity);
-        EmployeeRepositoriy.employee.get(index).setActivate(true);
+        if (!EmployeeRepositoriy.undo.empty()) {
+            EmployeeEntity employeeEntity = EmployeeRepositoriy.undo.pop();
+            int index = EmployeeRepositoriy.employee.indexOf(employeeEntity);
+            EmployeeRepositoriy.employee.get(index).setActivate(true);
+        }
+    }
+
+    public EmployeeEntity getForCPF(String CPF) {
+        EmployeeEntity employeeEntity = null;
+        for (int i = 0; i < EmployeeRepositoriy.employee.size(); i++) {
+            if (EmployeeRepositoriy.employee.get(i).getCPF().equals(CPF)) {
+                employeeEntity = EmployeeRepositoriy.employee.get(i);
+            }
+        }
+        return employeeEntity;
     }
 
 }

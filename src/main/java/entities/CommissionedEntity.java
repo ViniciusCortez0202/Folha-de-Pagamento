@@ -9,18 +9,17 @@ package entities;
  *
  * @author Vinicius
  */
-public class CommissionedEntity extends EmployeeEntity{
+public class CommissionedEntity extends EmployeeEntity {
 
     private String kickback;
     private String salary;
 
-    public CommissionedEntity(String kickback, String salary, String name, AddressEntity address) {
-        super(name, address);
+    public CommissionedEntity(String kickback, String salary, String name,
+            AddressEntity address, String CPF) {
+        super(name, address, CPF);
         this.kickback = kickback;
         this.salary = salary;
     }
-
-  
 
     public String getKickback() {
         return kickback;
@@ -37,6 +36,5 @@ public class CommissionedEntity extends EmployeeEntity{
     public void setSalary(String salary) {
         this.salary = salary;
     }
-    
-    
+
 }

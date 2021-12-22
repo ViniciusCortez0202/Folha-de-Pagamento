@@ -40,23 +40,15 @@ public class EmployeeController {
         return true;
     }
 
-    public boolean updateEmployee(EmployeeEntity oldEmployee, EmployeeEntity newEmployee, JTable table) {
+    public boolean updateEmployee(EmployeeEntity newEmployee) {
 
         if (newEmployee == null) {
             return false;
         }
         EmployeeRepositoriy repository = new EmployeeRepositoriy();
-        int index = repository.getAll().indexOf(oldEmployee);
-        repository.updateforName(index, newEmployee);
+        int index = repository.getAll().indexOf(newEmployee);
+        repository.updateforCPF(index, newEmployee);
 
-        /*if (newEmployee instanceof CommissionedEntity) {
-            CommissionedEntity commissionedEntity = (CommissionedEntity) newEmployee;
-
-        } else if (newEmployee instanceof HourlyEntity) {
-            HourlyEntity hourlyEntity = (HourlyEntity) newEmployee;
-        } else if (newEmployee instanceof SalariedEntity) {
-            SalariedEntity salariedEntity = (SalariedEntity) newEmployee;
-        }*/
         return true;
     }
 
@@ -81,6 +73,7 @@ public class EmployeeController {
             table.setValueAt(commissionedEntity.getSalary(), index, 3);
             table.setValueAt("-", index, 4);
             table.setValueAt(commissionedEntity.getKickback(), index, 5);
+            table.setValueAt(commissionedEntity.getCPF(), index, 6);
 
         } else if (newEmployee instanceof HourlyEntity) {
             HourlyEntity hourlyEntity = (HourlyEntity) newEmployee;
@@ -90,6 +83,7 @@ public class EmployeeController {
             table.setValueAt("-", index, 3);
             table.setValueAt(hourlyEntity.getWorkTime(), index, 4);
             table.setValueAt("-", index, 5);
+            table.setValueAt(hourlyEntity.getCPF(), index, 6);
         } else if (newEmployee instanceof SalariedEntity) {
             SalariedEntity salariedEntity = (SalariedEntity) newEmployee;
             table.setValueAt(salariedEntity.getName(), index, 0);
@@ -98,8 +92,14 @@ public class EmployeeController {
             table.setValueAt(salariedEntity.getSalary(), index, 3);
             table.setValueAt("-", index, 4);
             table.setValueAt("-", index, 5);
+            table.setValueAt(salariedEntity.getCPF(), index, 6);
         }
 
+    }
+
+    public EmployeeEntity getEmployeeForCPF(String CPF) {
+        EmployeeRepositoriy repository = new EmployeeRepositoriy();
+        return repository.getForCPF(CPF);
     }
 
     public void getAll(JTable table) {
@@ -108,6 +108,11 @@ public class EmployeeController {
         for (int i = 0; i < list.size(); i++) {
             addEmployeTable(list.get(i), table);
         }
+    }
+
+    public void undo() {
+        EmployeeRepositoriy repository = new EmployeeRepositoriy();        
+        repository.undo();
     }
 
 }

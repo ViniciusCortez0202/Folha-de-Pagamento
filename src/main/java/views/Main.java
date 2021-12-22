@@ -5,6 +5,8 @@
  */
 package views;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Vinicius
@@ -14,7 +16,7 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public Main() {
+    public Main() {        
         initComponents();
         this.setLocationRelativeTo(null);
     }

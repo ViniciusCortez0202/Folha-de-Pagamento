@@ -16,12 +16,14 @@ public abstract class EmployeeEntity {
     private String name;
     private AddressEntity address;
     private boolean activate;
+    private String CPF;
 
 
-    public EmployeeEntity(String name, AddressEntity address) {
+    public EmployeeEntity(String name, AddressEntity address, String CPF) {
         this.activate = true;
         this.name = name;
         this.address = address;
+        this.CPF = CPF;
     }
 
     public String getName() {
@@ -48,11 +50,18 @@ public abstract class EmployeeEntity {
         this.activate = activate;
     }
 
+    public String getCPF() {
+        return CPF;
+    }
+
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.name);
-        hash = 89 * hash + Objects.hashCode(this.address);
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.CPF);
         return hash;
     }
 
@@ -68,10 +77,7 @@ public abstract class EmployeeEntity {
             return false;
         }
         final EmployeeEntity other = (EmployeeEntity) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        if (!Objects.equals(this.address, other.address)) {
+        if (!Objects.equals(this.CPF, other.CPF)) {
             return false;
         }
         return true;

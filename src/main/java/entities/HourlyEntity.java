@@ -13,8 +13,8 @@ public class HourlyEntity extends EmployeeEntity{
 
     private String workTime;
 
-    public HourlyEntity(String workTime, String name, AddressEntity address) {
-        super(name, address);
+    public HourlyEntity(String workTime, String name, AddressEntity address, String CPF) {
+        super(name, address, CPF);
         this.workTime = workTime;
     }
 

@@ -6,6 +6,7 @@
 package views;
 
 import controllers.EmployeeController;
+import javax.swing.JFrame;
 
 /**
  *
@@ -43,14 +44,14 @@ public class ModifyEmployee extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nome", "Endereço", "Tipo", "Salário Mensal", "Salário Hora", "Comissão "
+                "Nome", "CPF", "Endereço", "Tipo", "Salário Mensal", "Salário Hora", "Comissão "
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -61,6 +62,11 @@ public class ModifyEmployee extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTableModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableModificarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableModificar);
         if (jTableModificar.getColumnModel().getColumnCount() > 0) {
             jTableModificar.getColumnModel().getColumn(0).setResizable(false);
@@ -69,6 +75,7 @@ public class ModifyEmployee extends javax.swing.JPanel {
             jTableModificar.getColumnModel().getColumn(3).setResizable(false);
             jTableModificar.getColumnModel().getColumn(4).setResizable(false);
             jTableModificar.getColumnModel().getColumn(5).setResizable(false);
+            jTableModificar.getColumnModel().getColumn(6).setResizable(false);
         }
 
         jLabelSearch.setText("Pesquisa:");
@@ -96,6 +103,20 @@ public class ModifyEmployee extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 531, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTableModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableModificarMouseClicked
+        // TODO add your handling code here:
+        
+        CreateEmployee createEmployee = new CreateEmployee();
+        EmployeeController controller = new EmployeeController();
+        int index = this.jTableModificar.getSelectedRow();
+        String CPF = this.jTableModificar.getValueAt(index, 6).toString();
+        
+        createEmployee.updateMode(controller.getEmployeeForCPF(CPF));
+        
+        this.getRootPane().setContentPane(createEmployee);
+        this.repaint();
+    }//GEN-LAST:event_jTableModificarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
