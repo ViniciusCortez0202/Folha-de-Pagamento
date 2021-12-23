@@ -103,6 +103,11 @@ public class ServiceController {
     public void undo() {
         ServiceRepository repository = new ServiceRepository();
         repository.undo();
-        
+
+    }
+
+    public ServiceEntity getSingleServiceForName(String name) {
+        ServiceRepository repository = new ServiceRepository();
+        return repository.getSingle(name);
     }
 }

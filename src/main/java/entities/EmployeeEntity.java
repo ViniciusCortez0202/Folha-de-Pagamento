@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -17,13 +19,17 @@ public abstract class EmployeeEntity {
     private AddressEntity address;
     private boolean activate;
     private String CPF;
+    private ServiceEntity service;
+    private boolean union;
 
 
-    public EmployeeEntity(String name, AddressEntity address, String CPF) {
+    public EmployeeEntity(String name, AddressEntity address, String CPF, boolean union) {
+        this.service = null;
         this.activate = true;
         this.name = name;
         this.address = address;
         this.CPF = CPF;
+        this.union = union;
     }
 
     public String getName() {
@@ -57,6 +63,24 @@ public abstract class EmployeeEntity {
     public void setCPF(String CPF) {
         this.CPF = CPF;
     }
+
+    public ServiceEntity getService() {
+        return service;
+    }
+
+    public void setServices(ServiceEntity service) {
+        this.service = service;
+    }
+
+    public boolean isUnion() {
+        return union;
+    }
+
+    public void setUnion(boolean union) {
+        this.union = union;
+    }
+    
+    
 
     @Override
     public int hashCode() {

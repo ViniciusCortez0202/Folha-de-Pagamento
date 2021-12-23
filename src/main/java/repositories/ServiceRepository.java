@@ -57,5 +57,8 @@ public class ServiceRepository implements IState<ServiceEntity>{
         ServiceRepository.service.get(index).setActivate(true);
     }
     
-        
+    public ServiceEntity getSingle(String name){
+        int index = ServiceRepository.service.indexOf(new ServiceEntity(name));
+        return ServiceRepository.service.get(index);
+    }
 }

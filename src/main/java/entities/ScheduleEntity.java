@@ -6,6 +6,7 @@
 package entities;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -13,13 +14,19 @@ import java.util.Date;
  */
 public class ScheduleEntity {
     private String name;
-    private Date schedule;
+    private String schedule;
+    private boolean activate;
 
-    public ScheduleEntity(String name, Date schedule) {
+    public ScheduleEntity(String name, String schedule) {
+        this.activate = true;
         this.name = name;
         this.schedule = schedule;
     }
 
+    public ScheduleEntity(String name) {
+        this.name = name;
+    }
+    
     public String getName() {
         return name;
     }
@@ -28,12 +35,45 @@ public class ScheduleEntity {
         this.name = name;
     }
 
-    public Date getSchedule() {
+    public String getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(Date schedule) {
+    public void setSchedule(String schedule) {
         this.schedule = schedule;
+    }
+
+    public boolean isActivate() {
+        return activate;
+    }
+
+    public void setActivate(boolean activate) {
+        this.activate = activate;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 31 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ScheduleEntity other = (ScheduleEntity) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
     }
     
     

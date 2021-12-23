@@ -13,8 +13,8 @@ public class SalariedEntity extends EmployeeEntity {
 
     private String salary;
 
-    public SalariedEntity(String salary, String name, AddressEntity address, String CPF) {
-        super(name, address, CPF);
+    public SalariedEntity(String salary, String name, AddressEntity address, String CPF, boolean union) {
+        super(name, address, CPF, union);
         this.salary = salary;
     }
 

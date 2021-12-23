@@ -24,6 +24,10 @@ public class ServiceEntity {
         this.description = description;
     }
 
+    public ServiceEntity(String name) {
+        this.name = name;
+    }
+
     public ServiceEntity() {
         this.activate = true;
     }

@@ -6,12 +6,15 @@
 package views;
 
 import controllers.EmployeeController;
+import controllers.ServiceController;
 import entities.AddressEntity;
 import entities.CommissionedEntity;
 import entities.EmployeeEntity;
 import entities.HourlyEntity;
 import entities.SalariedEntity;
+import entities.ServiceEntity;
 import java.awt.Dimension;
+import java.util.List;
 import javax.swing.JOptionPane;
 import utils.TypeEmployEnum;
 
@@ -25,7 +28,7 @@ public class CreateEmployee extends javax.swing.JPanel {
      * Creates new form AdicionarEmpregado
      */
     private boolean updateMode;
-
+    
     public CreateEmployee() {
         updateMode = false;
         initComponents();
@@ -66,6 +69,8 @@ public class CreateEmployee extends javax.swing.JPanel {
         jLabelCPF = new javax.swing.JLabel();
         jTextFieldCPF = new javax.swing.JTextField();
         jButtonUndo = new javax.swing.JButton();
+        jRadioButtonUnion = new javax.swing.JRadioButton();
+        jComboBoxServices = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(958, 589));
 
@@ -168,6 +173,16 @@ public class CreateEmployee extends javax.swing.JPanel {
             }
         });
 
+        jRadioButtonUnion.setText("Pertence ao sindicato");
+        jRadioButtonUnion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonUnionActionPerformed(evt);
+            }
+        });
+
+        jComboBoxServices.setVisible(false);
+        jComboBoxServices.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -210,7 +225,7 @@ public class CreateEmployee extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabelCidade)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                                .addComponent(jTextFieldCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                                 .addGap(46, 46, 46))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +247,11 @@ public class CreateEmployee extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabelCPF)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(50, 50, 50)
+                                        .addComponent(jRadioButtonUnion)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jComboBoxServices, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -257,11 +276,13 @@ public class CreateEmployee extends javax.swing.JPanel {
                     .addComponent(jLabelNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCPF)
-                    .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
+                    .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jRadioButtonUnion)
+                    .addComponent(jComboBoxServices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTipo)
                     .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -277,7 +298,7 @@ public class CreateEmployee extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelComissao)
                     .addComponent(jFormattedTextFieldComissao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar)
                     .addComponent(jButtonClear)
@@ -311,7 +332,7 @@ public class CreateEmployee extends javax.swing.JPanel {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         // TODO add your handling code here:
-        
+
         EmployeeController controller = new EmployeeController();
         EmployeeEntity newEmployee = formatedAll();
         
@@ -336,10 +357,10 @@ public class CreateEmployee extends javax.swing.JPanel {
         this.jFormattedTextFieldHoraTrabalho.setVisible(false);
         this.jFormattedTextFieldSalario.setVisible(false);
         this.jFormattedTextFieldComissao.setVisible(false);
-
+        
         String typeEmployee = (String) this.jComboBoxTipo.getSelectedItem();
         if (TypeEmployEnum.Commissionaed.getType().equals(typeEmployee)) {
-
+            
             this.jFormattedTextFieldComissao.setVisible(true);
             this.jFormattedTextFieldSalario.setVisible(true);
             this.jLabelComissao.setVisible(true);
@@ -373,11 +394,25 @@ public class CreateEmployee extends javax.swing.JPanel {
         this.jButtonUndo.setVisible(false);
     }//GEN-LAST:event_jButtonUndoActionPerformed
 
+    private void jRadioButtonUnionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonUnionActionPerformed
+        // TODO add your handling code here:
+        if (this.jRadioButtonUnion.isSelected()) {
+            this.jComboBoxServices.setVisible(true);
+            EmployeeController controller = new EmployeeController();
+            
+            List<ServiceEntity> list = controller.getServices();
+            
+            for (int i = 0; i < list.size(); i++) {
+                this.jComboBoxServices.setPrototypeDisplayValue(list.get(i).getName());
+            }
+        }
+    }//GEN-LAST:event_jRadioButtonUnionActionPerformed
+    
     private void clear() {
         updateMode = false;
         this.jButtonDelete.setVisible(false);
         this.jTextFieldCPF.setEditable(true);
-
+        
         this.jLabelHoraTrabalho.setVisible(false);
         this.jLabelSalario.setVisible(false);
         this.jLabelComissao.setVisible(false);
@@ -393,40 +428,40 @@ public class CreateEmployee extends javax.swing.JPanel {
         this.jTextFieldNumero.setText("");
         this.jTextFieldCPF.setText("");
     }
-
+    
     public void updateMode(EmployeeEntity employee) {
         this.updateMode = true;
-
+        
         this.jButtonDelete.setVisible(true);
         this.jTextFieldCPF.setEditable(false);
-
+        
         if (employee instanceof CommissionedEntity) {
             CommissionedEntity commissionedEntity = (CommissionedEntity) employee;
             this.jLabelComissao.setVisible(true);
             this.jFormattedTextFieldComissao.setVisible(true);
             this.jFormattedTextFieldComissao.setText(commissionedEntity.getKickback());
             this.jComboBoxTipo.setSelectedIndex(0);
-
+            
             this.jLabelSalario.setVisible(true);
             this.jFormattedTextFieldSalario.setVisible(true);
             this.jFormattedTextFieldSalario.setText(commissionedEntity.getSalary());
-
+            
         } else if (employee instanceof HourlyEntity) {
             HourlyEntity hourlyEntity = (HourlyEntity) employee;
             this.jLabelSalario.setVisible(true);
             this.jFormattedTextFieldHoraTrabalho.setVisible(true);
             this.jFormattedTextFieldHoraTrabalho.setText(hourlyEntity.getWorkTime());
             this.jComboBoxTipo.setSelectedIndex(2);
-
+            
         } else if (employee instanceof SalariedEntity) {
             SalariedEntity salariedEntity = (SalariedEntity) employee;
             this.jLabelSalario.setVisible(true);
             this.jFormattedTextFieldSalario.setVisible(true);
             this.jFormattedTextFieldSalario.setText(salariedEntity.getSalary());
             this.jComboBoxTipo.setSelectedIndex(1);
-
+            
         }
-
+        
         this.jTextFieldName.setText(employee.getName());
         this.jFormattedTextFieldCEP.setText(employee.getAddress().getCEP());
         this.jTextFieldBairro.setText(employee.getAddress().getDistrict());
@@ -434,10 +469,10 @@ public class CreateEmployee extends javax.swing.JPanel {
         this.jTextFieldLogradouro.setText(employee.getAddress().getAddress());
         this.jTextFieldNumero.setText(employee.getAddress().getNumber());
         this.jTextFieldCPF.setText(employee.getCPF());
-
+        
     }
     
-    private EmployeeEntity formatedAll(){
+    private EmployeeEntity formatedAll() {
         int barCity = this.jTextFieldCidade.getText().indexOf("/");
         AddressEntity addressEmployee = new AddressEntity(this.jTextFieldLogradouro.getText(),
                 this.jTextFieldNumero.getText(),
@@ -448,26 +483,34 @@ public class CreateEmployee extends javax.swing.JPanel {
                 this.jFormattedTextFieldCEP.getText());
         String typeEmployee = (String) this.jComboBoxTipo.getSelectedItem();
         String CPF = this.jTextFieldCPF.getText();
-
+        boolean union = this.jRadioButtonUnion.isSelected();
+        
         EmployeeEntity newEmployee = null;
         if (TypeEmployEnum.Commissionaed.getType().equals(typeEmployee)) {
-
+            
             newEmployee = new CommissionedEntity(
                     this.jFormattedTextFieldComissao.getText(),
                     this.jFormattedTextFieldSalario.getText(),
                     this.jTextFieldName.getText(),
-                    addressEmployee, CPF);
+                    addressEmployee, CPF, union);
         } else if (TypeEmployEnum.Hourly.getType().equals(typeEmployee)) {
             newEmployee = new HourlyEntity(
                     this.jFormattedTextFieldHoraTrabalho.getText(),
                     this.jTextFieldName.getText(),
-                    addressEmployee, CPF);
+                    addressEmployee, CPF, union);
         } else if (TypeEmployEnum.Salaried.getType().equals(typeEmployee)) {
             newEmployee = new SalariedEntity(
                     this.jFormattedTextFieldSalario.getText(),
                     this.jTextFieldName.getText(),
-                    addressEmployee, CPF);
+                    addressEmployee, CPF, union);
         }
+        
+        if (union) {            
+            String serviceName = this.jComboBoxServices.getSelectedItem().toString();            
+            ServiceController controllerService = new ServiceController();            
+            newEmployee.setServices(controllerService.getSingleServiceForName(serviceName));
+        }
+        
         return newEmployee;
     }
 
@@ -476,6 +519,7 @@ public class CreateEmployee extends javax.swing.JPanel {
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonUndo;
+    private javax.swing.JComboBox<String> jComboBoxServices;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JFormattedTextField jFormattedTextFieldCEP;
     private javax.swing.JFormattedTextField jFormattedTextFieldComissao;
@@ -492,6 +536,7 @@ public class CreateEmployee extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelNumero;
     private javax.swing.JLabel jLabelSalario;
     private javax.swing.JLabel jLabelTipo;
+    private javax.swing.JRadioButton jRadioButtonUnion;
     private javax.swing.JTextField jTextFieldBairro;
     private javax.swing.JTextField jTextFieldCPF;
     private javax.swing.JTextField jTextFieldCidade;

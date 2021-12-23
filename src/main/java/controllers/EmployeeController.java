@@ -114,5 +114,11 @@ public class EmployeeController {
         EmployeeRepositoriy repository = new EmployeeRepositoriy();        
         repository.undo();
     }
-
+    
+    public List<ServiceEntity> getServices(){
+        ServiceRepository repository = new ServiceRepository();
+        
+        return repository.getAll();
+    }       
+    
 }
