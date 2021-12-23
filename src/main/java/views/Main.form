@@ -64,6 +64,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cart&#xe3;o de Ponto"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemLancamentosPontoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemLancamentosVenda">
               <Properties>

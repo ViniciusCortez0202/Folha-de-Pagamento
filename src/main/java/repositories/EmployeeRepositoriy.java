@@ -5,7 +5,9 @@
  */
 package repositories;
 
+import entities.AddressEntity;
 import entities.EmployeeEntity;
+import entities.HourlyEntity;
 import entities.ServiceEntity;
 import java.util.ArrayList;
 import java.util.List;

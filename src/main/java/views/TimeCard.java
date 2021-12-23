@@ -5,6 +5,19 @@
  */
 package views;
 
+import controllers.EmployeeController;
+import controllers.TimeCardController;
+import entities.TimeCardEntity;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import utils.IDateFormat;
+
 /**
  *
  * @author Vinicius
@@ -16,6 +29,7 @@ public class TimeCard extends javax.swing.JPanel {
      */
     public TimeCard() {
         initComponents();
+        load();
     }
 
     /**
@@ -32,15 +46,22 @@ public class TimeCard extends javax.swing.JPanel {
         jButtonTimeCard = new javax.swing.JButton();
         jLabelIn = new javax.swing.JLabel();
         jLabelOut = new javax.swing.JLabel();
-        jTextFieldIn = new javax.swing.JTextField();
-        jTextFieldOut = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTimeCards = new javax.swing.JTable();
-        jLabelSearch = new javax.swing.JLabel();
+        jFormattedTextFieldIn = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldOut = new javax.swing.JFormattedTextField();
+        jButtonDelete = new javax.swing.JButton();
+        jButtonClear = new javax.swing.JButton();
+        jButtonUndo = new javax.swing.JButton();
 
         jLabelEmployeeId.setText("Código Funcionário:");
 
         jButtonTimeCard.setText("Bater o ponto");
+        jButtonTimeCard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTimeCardActionPerformed(evt);
+            }
+        });
 
         jLabelIn.setText("Entrada:");
 
@@ -48,98 +69,255 @@ public class TimeCard extends javax.swing.JPanel {
 
         jTableTimeCards.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Entrada", "Saída", "Delete"
+                "Funcionário", "Entrada", "Saída", "ID"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableTimeCards.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableTimeCardsMouseClicked(evt);
+            }
         });
         jScrollPane1.setViewportView(jTableTimeCards);
+        if (jTableTimeCards.getColumnModel().getColumnCount() > 0) {
+            jTableTimeCards.getColumnModel().getColumn(0).setResizable(false);
+            jTableTimeCards.getColumnModel().getColumn(1).setResizable(false);
+            jTableTimeCards.getColumnModel().getColumn(2).setResizable(false);
+            jTableTimeCards.getColumnModel().getColumn(3).setResizable(false);
+        }
 
-        jLabelSearch.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabelSearch.setText("+");
+        jFormattedTextFieldIn.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+
+        jFormattedTextFieldOut.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+
+        jButtonDelete.setVisible(false);
+        jButtonDelete.setText("Deletar");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
+
+        jButtonClear.setText("Limpar");
+        jButtonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClearActionPerformed(evt);
+            }
+        });
+
+        jButtonUndo.setText("Undo");
+        jButtonUndo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUndoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addComponent(jLabelEmployeeId)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldEmpolyeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabelOut)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldOut, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelSearch))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(jLabelIn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldIn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(35, 35, 35)
+                            .addComponent(jLabelEmployeeId)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jTextFieldEmpolyeeId, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(100, 100, 100)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelIn, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabelOut))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jFormattedTextFieldIn, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
+                                .addComponent(jFormattedTextFieldOut))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(128, 128, 128)
-                        .addComponent(jButtonTimeCard)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonTimeCard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonUndo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldEmpolyeeId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelEmployeeId)
-                            .addComponent(jLabelSearch))
+                            .addComponent(jLabelEmployeeId))
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelIn)
-                            .addComponent(jTextFieldIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jFormattedTextFieldIn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelOut))
+                            .addComponent(jLabelOut)
+                            .addComponent(jFormattedTextFieldOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(73, 73, 73)
-                        .addComponent(jButtonTimeCard))
+                        .addComponent(jButtonTimeCard)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButtonDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonUndo)
+                            .addComponent(jButtonClear)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonTimeCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTimeCardActionPerformed
+        // TODO add your handling code here:
 
+        StringBuilder dateIn = new StringBuilder();
+        StringBuilder dateOut = new StringBuilder();
+        int day = LocalDate.now().getDayOfMonth();
+        dateIn.append(
+                ((day < 10) ? "0" + String.valueOf(day) : String.valueOf(day))
+        );
+        dateIn.append("/");
+        int month = LocalDate.now().getMonthValue();
+        dateIn.append(
+                ((month < 10) ? "0" + String.valueOf(month) : String.valueOf(month))
+        );
+        dateIn.append("/");
+        int year = LocalDate.now().getYear();
+        dateIn.append(
+                String.valueOf(year)
+        );
+        dateOut.append(dateIn);
+        dateIn.append(" ").append(this.jFormattedTextFieldIn.getText());
+        dateOut.append(" ").append(this.jFormattedTextFieldOut.getText());
+        Date in = null;
+        Date out = null;
+        String CPF = this.jTextFieldEmpolyeeId.getText();
+        try {
+            in = IDateFormat.format.parse(dateIn.toString());
+            out = IDateFormat.format.parse(dateOut.toString());
+        } catch (ParseException ex) {
+            System.out.println("Formato de data errada");
+            return;
+        }
+
+        TimeCardController controller = new TimeCardController();
+        EmployeeController employeeController = new EmployeeController();
+
+        if (out.before(in)) {
+            JOptionPane.showMessageDialog(null, "Impossível data de entrada ser menor que saída!", "Data!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        TimeCardEntity newTimeCard = new TimeCardEntity(String.valueOf(System.currentTimeMillis()), employeeController.getEmployeeForCPF(CPF), in, out);
+        int index = this.jTableTimeCards.getSelectedRow();
+
+        if (!controller.createTimeCard(newTimeCard)) {
+            JOptionPane.showMessageDialog(null, "Por Favor, preencha todos os campos", "Vazio!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            controller.addListTimeCard(newTimeCard, jTableTimeCards);
+            clear();
+        }
+    }//GEN-LAST:event_jButtonTimeCardActionPerformed
+
+    private void jButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClearActionPerformed
+        // TODO add your handling code here:
+        clear();
+    }//GEN-LAST:event_jButtonClearActionPerformed
+
+    private void jTableTimeCardsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTimeCardsMouseClicked
+        // TODO add your handling code here:
+        jButtonDelete.setVisible(true);
+    }//GEN-LAST:event_jTableTimeCardsMouseClicked
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        // TODO add your handling code here:
+
+        int index = this.jTableTimeCards.getSelectedRow();
+
+        Date in = null;
+        Date out = null;
+        String CPF = this.jTextFieldEmpolyeeId.getText();
+        try {
+            in = IDateFormat.format.parse(this.jTableTimeCards.getValueAt(index, 1).toString());
+            out = IDateFormat.format.parse(this.jTableTimeCards.getValueAt(index, 2).toString());
+        } catch (ParseException ex) {
+            System.out.println("Formato de data errada");
+            return;
+        }
+
+        TimeCardController controller = new TimeCardController();
+        EmployeeController employeeController = new EmployeeController();
+
+        TimeCardEntity timeCard = new TimeCardEntity(this.jTableTimeCards.getValueAt(index, 3).toString(), employeeController.getEmployeeForCPF(CPF), in, out);
+
+        controller.deleteTimeCard(timeCard, jTableTimeCards);
+
+        this.jTableTimeCards.clearSelection();
+        clear();
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jButtonUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUndoActionPerformed
+        // TODO add your handling code here:
+        TimeCardController controller = new TimeCardController();
+        controller.undo();
+        DefaultTableModel df = (DefaultTableModel) this.jTableTimeCards.getModel();
+        df.getDataVector().removeAllElements();
+        controller.getAllTimeCards(this.jTableTimeCards);
+    }//GEN-LAST:event_jButtonUndoActionPerformed
+
+    private void load() {
+        TimeCardController controller = new TimeCardController();
+        controller.getAllTimeCards(this.jTableTimeCards);
+    }
+
+    private void clear() {
+        jButtonDelete.setVisible(false);
+        jButtonTimeCard.setVisible(true);
+        jFormattedTextFieldIn.setText("");
+        jFormattedTextFieldOut.setText("");
+        jTextFieldEmpolyeeId.setText("");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonClear;
+    private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonTimeCard;
+    private javax.swing.JButton jButtonUndo;
+    private javax.swing.JFormattedTextField jFormattedTextFieldIn;
+    private javax.swing.JFormattedTextField jFormattedTextFieldOut;
     private javax.swing.JLabel jLabelEmployeeId;
     private javax.swing.JLabel jLabelIn;
     private javax.swing.JLabel jLabelOut;
-    private javax.swing.JLabel jLabelSearch;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTimeCards;
     private javax.swing.JTextField jTextFieldEmpolyeeId;
-    private javax.swing.JTextField jTextFieldIn;
-    private javax.swing.JTextField jTextFieldOut;
     // End of variables declaration//GEN-END:variables
 }

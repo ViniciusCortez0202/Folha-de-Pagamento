@@ -5,7 +5,10 @@
  */
 package views;
 
+import entities.AddressEntity;
+import entities.HourlyEntity;
 import javax.swing.JFrame;
+import repositories.EmployeeRepositoriy;
 
 /**
  *
@@ -19,6 +22,14 @@ public class Main extends javax.swing.JFrame {
     public Main() {        
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        
+        AddressEntity ad = new AddressEntity("margarida", "20", "grande", "arapiraca", "al", "57.307-160");
+        HourlyEntity hr = new HourlyEntity("33,00", "Vinicius", ad, "12921601443", true);
+          
+        EmployeeRepositoriy e = new EmployeeRepositoriy();
+        e.insertEmployee(hr);
+        
     }
 
     /**
@@ -93,6 +104,11 @@ public class Main extends javax.swing.JFrame {
         jMenuLancamentos.add(jMenuItemLancamentosServicos);
 
         jMenuItemLancamentosPonto.setText("Cartão de Ponto");
+        jMenuItemLancamentosPonto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLancamentosPontoActionPerformed(evt);
+            }
+        });
         jMenuLancamentos.add(jMenuItemLancamentosPonto);
 
         jMenuItemLancamentosVenda.setText("Venda");
@@ -156,6 +172,15 @@ public class Main extends javax.swing.JFrame {
         pack();
         this.repaint();
     }//GEN-LAST:event_jMenuItemLancamentosServicosActionPerformed
+
+    private void jMenuItemLancamentosPontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLancamentosPontoActionPerformed
+        // TODO add your handling code here:
+        TimeCard timeCard = new TimeCard();
+         
+        this.setContentPane(timeCard);
+        pack();
+        this.repaint();
+    }//GEN-LAST:event_jMenuItemLancamentosPontoActionPerformed
 
     /**
      * @param args the command line arguments
