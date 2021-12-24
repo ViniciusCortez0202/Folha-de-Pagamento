@@ -5,6 +5,8 @@
  */
 package entities;
 
+import utils.PaymentTypeEnum;
+
 /**
  *
  * @author Vinicius
@@ -13,11 +15,11 @@ public class HourlyEntity extends EmployeeEntity{
 
     private String workTime;
 
-    public HourlyEntity(String workTime, String name, AddressEntity address, String CPF, boolean union) {
-        super(name, address, CPF, union);
+    public HourlyEntity(String workTime, String name, AddressEntity address, String CPF, boolean union, PaymentTypeEnum payment) {
+        super(name, address, CPF, union, payment);
         this.workTime = workTime;
     }
-
+    
     public String getWorkTime() {
         return workTime;
     }

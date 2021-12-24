@@ -5,6 +5,8 @@
  */
 package entities;
 
+import utils.PaymentTypeEnum;
+
 /**
  *
  * @author Vinicius
@@ -13,8 +15,8 @@ public class SalariedEntity extends EmployeeEntity {
 
     private String salary;
 
-    public SalariedEntity(String salary, String name, AddressEntity address, String CPF, boolean union) {
-        super(name, address, CPF, union);
+    public SalariedEntity(String salary, String name, AddressEntity address, String CPF, boolean union, PaymentTypeEnum payment) {
+        super(name, address, CPF, union, payment);
         this.salary = salary;
     }
 

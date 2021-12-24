@@ -8,28 +8,30 @@ package entities;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Objects;
+import utils.PaymentTypeEnum;
 
 /**
  *
  * @author Vinicius
  */
 public abstract class EmployeeEntity {
-    
+
     private String name;
     private AddressEntity address;
     private boolean activate;
     private String CPF;
     private ServiceEntity service;
     private boolean union;
+    private PaymentTypeEnum payment;
 
-
-    public EmployeeEntity(String name, AddressEntity address, String CPF, boolean union) {
+    public EmployeeEntity(String name, AddressEntity address, String CPF, boolean union, PaymentTypeEnum payment) {
         this.service = null;
         this.activate = true;
         this.name = name;
         this.address = address;
         this.CPF = CPF;
         this.union = union;
+        this.payment = payment;
     }
 
     public String getName() {
@@ -79,8 +81,14 @@ public abstract class EmployeeEntity {
     public void setUnion(boolean union) {
         this.union = union;
     }
-    
-    
+
+    public PaymentTypeEnum getPayment() {
+        return payment;
+    }
+
+    public void setPayment(PaymentTypeEnum payment) {
+        this.payment = payment;
+    }
 
     @Override
     public int hashCode() {
@@ -106,5 +114,5 @@ public abstract class EmployeeEntity {
         }
         return true;
     }
-    
+
 }

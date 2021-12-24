@@ -9,6 +9,7 @@ import entities.AddressEntity;
 import entities.HourlyEntity;
 import javax.swing.JFrame;
 import repositories.EmployeeRepositoriy;
+import utils.PaymentTypeEnum;
 
 /**
  *
@@ -25,7 +26,7 @@ public class Main extends javax.swing.JFrame {
         
         
         AddressEntity ad = new AddressEntity("margarida", "20", "grande", "arapiraca", "al", "57.307-160");
-        HourlyEntity hr = new HourlyEntity("33,00", "Vinicius", ad, "12921601443", true);
+        HourlyEntity hr = new HourlyEntity("33,00", "Vinicius", ad, "12921601443", true, PaymentTypeEnum.Bank);
           
         EmployeeRepositoriy e = new EmployeeRepositoriy();
         e.insertEmployee(hr);
@@ -112,6 +113,11 @@ public class Main extends javax.swing.JFrame {
         jMenuLancamentos.add(jMenuItemLancamentosPonto);
 
         jMenuItemLancamentosVenda.setText("Venda");
+        jMenuItemLancamentosVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLancamentosVendaActionPerformed(evt);
+            }
+        });
         jMenuLancamentos.add(jMenuItemLancamentosVenda);
 
         jMenuBarAcoes.add(jMenuLancamentos);
@@ -181,6 +187,15 @@ public class Main extends javax.swing.JFrame {
         pack();
         this.repaint();
     }//GEN-LAST:event_jMenuItemLancamentosPontoActionPerformed
+
+    private void jMenuItemLancamentosVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLancamentosVendaActionPerformed
+        // TODO add your handling code here:
+        CreateSold createSold = new CreateSold();
+         
+        this.setContentPane(createSold);
+        pack();
+        this.repaint();
+    }//GEN-LAST:event_jMenuItemLancamentosVendaActionPerformed
 
     /**
      * @param args the command line arguments

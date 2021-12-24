@@ -5,6 +5,8 @@
  */
 package entities;
 
+import utils.PaymentTypeEnum;
+
 /**
  *
  * @author Vinicius
@@ -14,14 +16,11 @@ public class CommissionedEntity extends EmployeeEntity {
     private String kickback;
     private String salary;
 
-    public CommissionedEntity(String kickback, String salary, String name, AddressEntity address, String CPF, boolean union) {
-        super(name, address, CPF, union);
+    public CommissionedEntity(String kickback, String salary, String name, AddressEntity address, String CPF, boolean union, PaymentTypeEnum payment) {
+        super(name, address, CPF, union, payment);
         this.kickback = kickback;
         this.salary = salary;
     }
-
-  
-
     public String getKickback() {
         return kickback;
     }
