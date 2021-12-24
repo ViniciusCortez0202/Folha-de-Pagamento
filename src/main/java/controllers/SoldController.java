@@ -16,7 +16,8 @@ import repositories.SoldRepository;
  * @author Vinicius
  */
 public class SoldController {
-     public boolean createSold(SoldEntity newSold) {
+
+    public boolean createSold(SoldEntity newSold) {
         if (newSold == null) {
             return false;
         }
@@ -42,9 +43,9 @@ public class SoldController {
         //table.addRowSelectionInterval(0, 0);
         DefaultTableModel df = (DefaultTableModel) table.getModel();
         df.setNumRows(df.getRowCount() + 1);
-        
+
         int row = df.getRowCount() - 1;
-        table.setValueAt(newSold.getId(), row, 0);        
+        table.setValueAt(newSold.getId(), row, 0);
         table.setValueAt(newSold.getEmployee().getCPF(), row, 1);
         table.setValueAt(newSold.getValue(), row, 2);
 
@@ -56,6 +57,11 @@ public class SoldController {
         for (int i = 0; i < list.size(); i++) {
             addListSold(list.get(i), table);
         }
+    }
+
+    public List<SoldEntity> getAllSold() {
+        SoldRepository repository = new SoldRepository();
+        return repository.getAll();        
     }
 
     public boolean updateSold(SoldEntity oldSold, SoldEntity newSold, JTable table) {

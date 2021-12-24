@@ -18,6 +18,9 @@ public class SalariedEntity extends EmployeeEntity {
     public SalariedEntity(String salary, String name, AddressEntity address, String CPF, boolean union, PaymentTypeEnum payment) {
         super(name, address, CPF, union, payment);
         this.salary = salary;
+        
+        ScheduleEntity salaried = new ScheduleEntity("salaried", "7");
+        super.setSchedule(salaried);
     }
 
     public String getSalary() {

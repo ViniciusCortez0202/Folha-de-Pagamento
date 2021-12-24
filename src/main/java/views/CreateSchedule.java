@@ -36,7 +36,6 @@ public class CreateSchedule extends javax.swing.JPanel {
         jLabelNome = new javax.swing.JLabel();
         jLabelCondicao = new javax.swing.JLabel();
         jTextFieldName = new javax.swing.JTextField();
-        jFormattedTextFieldSchedule = new javax.swing.JFormattedTextField();
         jButtonAdd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableSchendule = new javax.swing.JTable();
@@ -44,12 +43,11 @@ public class CreateSchedule extends javax.swing.JPanel {
         jButtonDelete = new javax.swing.JButton();
         jButtonUndo = new javax.swing.JButton();
         jButtonClear = new javax.swing.JButton();
+        jTextFieldSchedule = new javax.swing.JTextField();
 
         jLabelNome.setText("Nome:");
 
         jLabelCondicao.setText("Condição:");
-
-        jFormattedTextFieldSchedule.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#/#"))));
 
         jButtonAdd.setText("Adicionar");
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +128,7 @@ public class CreateSchedule extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(71, 71, 71)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelNome)
                                 .addGap(18, 18, 18)
@@ -138,12 +136,11 @@ public class CreateSchedule extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelCondicao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jFormattedTextFieldSchedule)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButtonModify, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButtonDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jButtonAdd, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                                    .addComponent(jButtonModify, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButtonDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldSchedule)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -165,7 +162,7 @@ public class CreateSchedule extends javax.swing.JPanel {
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelCondicao)
-                            .addComponent(jFormattedTextFieldSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(36, 36, 36)
@@ -189,7 +186,7 @@ public class CreateSchedule extends javax.swing.JPanel {
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
         String name = this.jTextFieldName.getText();
-        String date = this.jFormattedTextFieldSchedule.getText();
+        String date = this.jTextFieldSchedule.getText();
 
         ScheduleController controller = new ScheduleController();
 
@@ -208,7 +205,7 @@ public class CreateSchedule extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         String name = this.jTextFieldName.getText();
-        String date = this.jFormattedTextFieldSchedule.getText();
+        String date = this.jTextFieldSchedule.getText();
 
         ScheduleController controller = new ScheduleController();
 
@@ -234,7 +231,7 @@ public class CreateSchedule extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         String name = this.jTextFieldName.getText();
-        String date = this.jFormattedTextFieldSchedule.getText();
+        String date = this.jTextFieldSchedule.getText();
 
         ScheduleController controller = new ScheduleController();
 
@@ -268,7 +265,7 @@ public class CreateSchedule extends javax.swing.JPanel {
                 this.jTableSchendule.getValueAt(index, 1).toString());
 
         this.jTextFieldName.setText(schedule.getName());
-        this.jFormattedTextFieldSchedule.setText(schedule.getSchedule());
+        this.jTextFieldSchedule.setText(schedule.getSchedule());
         
           this.jButtonAdd.setVisible(false);
         this.jButtonDelete.setVisible(true);
@@ -286,7 +283,7 @@ public class CreateSchedule extends javax.swing.JPanel {
         this.jButtonDelete.setVisible(false);
         this.jButtonModify.setVisible(false);
         this.jTextFieldName.setText("");
-        this.jFormattedTextFieldSchedule.setText("");
+        this.jTextFieldSchedule.setText("");
 
     }
 
@@ -297,11 +294,11 @@ public class CreateSchedule extends javax.swing.JPanel {
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonModify;
     private javax.swing.JButton jButtonUndo;
-    private javax.swing.JFormattedTextField jFormattedTextFieldSchedule;
     private javax.swing.JLabel jLabelCondicao;
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableSchendule;
     private javax.swing.JTextField jTextFieldName;
+    private javax.swing.JTextField jTextFieldSchedule;
     // End of variables declaration//GEN-END:variables
 }

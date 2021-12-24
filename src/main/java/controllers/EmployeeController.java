@@ -110,15 +110,20 @@ public class EmployeeController {
         }
     }
 
+    public List<EmployeeEntity>  getAll() {
+        EmployeeRepositoriy repository = new EmployeeRepositoriy();
+        return repository.getAll();        
+    }
+
     public void undo() {
-        EmployeeRepositoriy repository = new EmployeeRepositoriy();        
+        EmployeeRepositoriy repository = new EmployeeRepositoriy();
         repository.undo();
     }
-    
-    public List<ServiceEntity> getServices(){
+
+    public List<ServiceEntity> getServices() {
         ServiceRepository repository = new ServiceRepository();
-        
+
         return repository.getAll();
-    }       
-    
+    }
+
 }

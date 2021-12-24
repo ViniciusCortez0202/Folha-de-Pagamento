@@ -20,17 +20,16 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public Main() {        
+    public Main() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
-        
+
         AddressEntity ad = new AddressEntity("margarida", "20", "grande", "arapiraca", "al", "57.307-160");
         HourlyEntity hr = new HourlyEntity("33,00", "Vinicius", ad, "12921601443", true, PaymentTypeEnum.Bank);
-          
+
         EmployeeRepositoriy e = new EmployeeRepositoriy();
         e.insertEmployee(hr);
-        
+
     }
 
     /**
@@ -82,6 +81,11 @@ public class Main extends javax.swing.JFrame {
         jMenuPagamentos.setText("Pagamentos");
 
         jMenuItemPagamentosFolha.setText("Folha de Pagamento");
+        jMenuItemPagamentosFolha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemPagamentosFolhaActionPerformed(evt);
+            }
+        });
         jMenuPagamentos.add(jMenuItemPagamentosFolha);
 
         jMenuItemPagamentosAgendas.setText("Agendas");
@@ -172,7 +176,7 @@ public class Main extends javax.swing.JFrame {
     private void jMenuItemLancamentosServicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLancamentosServicosActionPerformed
         // TODO add your handling code here:
         CreateService createService = new CreateService();
- 
+
         //createService.setVisible(true);
         this.setContentPane(createService);
         pack();
@@ -182,7 +186,7 @@ public class Main extends javax.swing.JFrame {
     private void jMenuItemLancamentosPontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLancamentosPontoActionPerformed
         // TODO add your handling code here:
         TimeCard timeCard = new TimeCard();
-         
+
         this.setContentPane(timeCard);
         pack();
         this.repaint();
@@ -191,11 +195,20 @@ public class Main extends javax.swing.JFrame {
     private void jMenuItemLancamentosVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLancamentosVendaActionPerformed
         // TODO add your handling code here:
         CreateSold createSold = new CreateSold();
-         
+
         this.setContentPane(createSold);
         pack();
         this.repaint();
     }//GEN-LAST:event_jMenuItemLancamentosVendaActionPerformed
+
+    private void jMenuItemPagamentosFolhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPagamentosFolhaActionPerformed
+        // TODO add your handling code here:
+        PayRoll pay = new PayRoll();
+
+        this.setContentPane(pay);
+        pack();
+        this.repaint();
+    }//GEN-LAST:event_jMenuItemPagamentosFolhaActionPerformed
 
     /**
      * @param args the command line arguments

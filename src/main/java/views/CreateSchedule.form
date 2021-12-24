@@ -20,7 +20,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabelNome" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -29,13 +29,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabelCondicao" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jFormattedTextFieldSchedule" max="32767" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jButtonAdd" max="32767" attributes="0"/>
-                                      <Component id="jButtonModify" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jButtonDelete" alignment="1" max="32767" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="jButtonAdd" pref="127" max="32767" attributes="0"/>
+                                  <Component id="jButtonModify" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jButtonDelete" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldSchedule" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -67,7 +65,7 @@
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelCondicao" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jFormattedTextFieldSchedule" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldSchedule" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -108,13 +106,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldName">
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldSchedule">
-      <Properties>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="#/#" subtype="-1" type="0"/>
-        </Property>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonAdd">
       <Properties>
@@ -200,6 +191,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonClearActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTextFieldSchedule">
     </Component>
   </SubComponents>
 </Form>

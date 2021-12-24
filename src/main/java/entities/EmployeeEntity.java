@@ -23,8 +23,12 @@ public abstract class EmployeeEntity {
     private ServiceEntity service;
     private boolean union;
     private PaymentTypeEnum payment;
+    private String unionRate;
+    private ScheduleEntity schedule;
 
     public EmployeeEntity(String name, AddressEntity address, String CPF, boolean union, PaymentTypeEnum payment) {
+        unionRate = null;
+        schedule = null;
         this.service = null;
         this.activate = true;
         this.name = name;
@@ -90,6 +94,22 @@ public abstract class EmployeeEntity {
         this.payment = payment;
     }
 
+    public String getUnionRate() {
+        return unionRate;
+    }
+
+    public void setUnionRate(String unionRate) {
+        this.unionRate = unionRate;
+    }
+
+    public ScheduleEntity getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(ScheduleEntity schedule) {
+        this.schedule = schedule;
+    }
+       
     @Override
     public int hashCode() {
         int hash = 5;

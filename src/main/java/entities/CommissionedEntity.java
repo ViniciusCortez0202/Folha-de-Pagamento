@@ -20,6 +20,10 @@ public class CommissionedEntity extends EmployeeEntity {
         super(name, address, CPF, union, payment);
         this.kickback = kickback;
         this.salary = salary;
+        
+        ScheduleEntity commissioned = new ScheduleEntity("commissioned", "15");
+        super.setSchedule(commissioned);
+        
     }
     public String getKickback() {
         return kickback;

@@ -6,6 +6,7 @@
 package views;
 
 import controllers.EmployeeController;
+import controllers.ScheduleController;
 import controllers.ServiceController;
 import entities.AddressEntity;
 import entities.CommissionedEntity;
@@ -74,6 +75,10 @@ public class CreateEmployee extends javax.swing.JPanel {
         jComboBoxServices = new javax.swing.JComboBox<>();
         jLabelPaymentType = new javax.swing.JLabel();
         jComboBoxPaymentType = new javax.swing.JComboBox<>();
+        jLabelRateUnion = new javax.swing.JLabel();
+        jFormattedTextFieldRateUnion = new javax.swing.JFormattedTextField();
+        jLabelSchedule = new javax.swing.JLabel();
+        jComboBoxSchedule = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(958, 589));
 
@@ -190,6 +195,16 @@ public class CreateEmployee extends javax.swing.JPanel {
 
         jComboBoxPaymentType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { PaymentTypeEnum.Bank.getType(), PaymentTypeEnum.Post.getType(), PaymentTypeEnum.Hand.getType() }));
 
+        jLabelRateUnion.setVisible(false);
+        jLabelRateUnion.setText("Taxa:");
+
+        jFormattedTextFieldRateUnion.setVisible(false);
+        jFormattedTextFieldRateUnion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+
+        jLabelSchedule.setText("Agenda de pagamento:");
+
+        jComboBoxSchedule.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Padrão" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -234,36 +249,49 @@ public class CreateEmployee extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
                                 .addGap(46, 46, 46))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabelTipo)
-                                    .addGap(41, 41, 41)
-                                    .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabelSalario)
-                                        .addComponent(jLabelHoraTrabalho)
-                                        .addComponent(jLabelComissao))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jFormattedTextFieldComissao)
-                                        .addComponent(jFormattedTextFieldSalario)
-                                        .addComponent(jFormattedTextFieldHoraTrabalho))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelCPF)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabelCPF)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabelTipo)
+                                            .addGap(41, 41, 41)
+                                            .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabelSalario)
+                                                .addComponent(jLabelHoraTrabalho)
+                                                .addComponent(jLabelComissao))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jFormattedTextFieldComissao)
+                                                .addComponent(jFormattedTextFieldSalario)
+                                                .addComponent(jFormattedTextFieldHoraTrabalho)))))
                                 .addGap(50, 50, 50)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jRadioButtonUnion)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jComboBoxServices, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabelPaymentType)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jComboBoxPaymentType, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(253, 253, 253)))))
+                                        .addComponent(jComboBoxServices, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(29, 29, 29)
+                                        .addComponent(jLabelRateUnion)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jFormattedTextFieldRateUnion)
+                                        .addGap(40, 40, 40))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabelSchedule)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jComboBoxSchedule, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabelPaymentType)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jComboBoxPaymentType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addGap(291, 291, 291)))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -292,19 +320,22 @@ public class CreateEmployee extends javax.swing.JPanel {
                     .addComponent(jLabelCPF)
                     .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jRadioButtonUnion)
-                    .addComponent(jComboBoxServices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxServices, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelRateUnion)
+                    .addComponent(jFormattedTextFieldRateUnion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTipo)
-                    .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelPaymentType)
-                    .addComponent(jComboBoxPaymentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                    .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelPaymentType)
+                        .addComponent(jComboBoxPaymentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelHoraTrabalho)
-                    .addComponent(jFormattedTextFieldHoraTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextFieldHoraTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelSchedule)
+                    .addComponent(jComboBoxSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSalario)
@@ -414,6 +445,8 @@ public class CreateEmployee extends javax.swing.JPanel {
         if (this.jRadioButtonUnion.isSelected()) {
             this.jComboBoxServices.setSelectedIndex(-1);
             this.jComboBoxServices.setVisible(true);
+            this.jLabelRateUnion.setVisible(true);
+            this.jFormattedTextFieldRateUnion.setVisible(true);
 
             EmployeeController controller = new EmployeeController();
 
@@ -424,6 +457,8 @@ public class CreateEmployee extends javax.swing.JPanel {
             }
         } else {
             this.jComboBoxServices.setVisible(false);
+            this.jLabelRateUnion.setVisible(false);
+            this.jFormattedTextFieldRateUnion.setVisible(false);
         }
     }//GEN-LAST:event_jRadioButtonUnionActionPerformed
 
@@ -435,6 +470,7 @@ public class CreateEmployee extends javax.swing.JPanel {
         this.jComboBoxServices.setSelectedIndex(-1);
         this.jRadioButtonUnion.setSelected(false);
         this.jComboBoxPaymentType.setSelectedIndex(-1);
+        this.jComboBoxSchedule.setSelectedIndex(-1);
 
         this.jLabelHoraTrabalho.setVisible(false);
         this.jLabelSalario.setVisible(false);
@@ -507,8 +543,8 @@ public class CreateEmployee extends javax.swing.JPanel {
         String typeEmployee = (String) this.jComboBoxTipo.getSelectedItem();
         String CPF = this.jTextFieldCPF.getText();
         boolean union = this.jRadioButtonUnion.isSelected();
+       
         String paymentString = this.jComboBoxPaymentType.getSelectedItem().toString();
-
         PaymentTypeEnum payment = PaymentTypeEnum.Bank;
 
         if (PaymentTypeEnum.Bank.getType().equals(paymentString)) {
@@ -539,10 +575,17 @@ public class CreateEmployee extends javax.swing.JPanel {
                     addressEmployee, CPF, union, payment);
         }
 
+        String schedule = this.jComboBoxSchedule.getSelectedItem().toString();
+        if(!schedule.equals("Padrão")){
+            ScheduleController scheduleControoler = new ScheduleController();
+            newEmployee.setSchedule(scheduleControoler.getSingleScheduleForName(schedule));
+        }        
         if (union) {
             String serviceName = this.jComboBoxServices.getSelectedItem().toString();
             ServiceController controllerService = new ServiceController();
             newEmployee.setServices(controllerService.getSingleServiceForName(serviceName));
+            String unionRate = this.jFormattedTextFieldRateUnion.getText();
+            newEmployee.setUnionRate(unionRate);
         }
 
         return newEmployee;
@@ -554,11 +597,13 @@ public class CreateEmployee extends javax.swing.JPanel {
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JButton jButtonUndo;
     private javax.swing.JComboBox<String> jComboBoxPaymentType;
+    private javax.swing.JComboBox<String> jComboBoxSchedule;
     private javax.swing.JComboBox<String> jComboBoxServices;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private javax.swing.JFormattedTextField jFormattedTextFieldCEP;
     private javax.swing.JFormattedTextField jFormattedTextFieldComissao;
     private javax.swing.JFormattedTextField jFormattedTextFieldHoraTrabalho;
+    private javax.swing.JFormattedTextField jFormattedTextFieldRateUnion;
     private javax.swing.JFormattedTextField jFormattedTextFieldSalario;
     private javax.swing.JLabel jLabelBairro;
     private javax.swing.JLabel jLabelCEP;
@@ -570,7 +615,9 @@ public class CreateEmployee extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelNome;
     private javax.swing.JLabel jLabelNumero;
     private javax.swing.JLabel jLabelPaymentType;
+    private javax.swing.JLabel jLabelRateUnion;
     private javax.swing.JLabel jLabelSalario;
+    private javax.swing.JLabel jLabelSchedule;
     private javax.swing.JLabel jLabelTipo;
     private javax.swing.JRadioButton jRadioButtonUnion;
     private javax.swing.JTextField jTextFieldBairro;

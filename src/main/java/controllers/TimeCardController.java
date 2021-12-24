@@ -44,7 +44,7 @@ public class TimeCardController {
         //table.addRowSelectionInterval(0, 0);
         DefaultTableModel df = (DefaultTableModel) table.getModel();
         df.setNumRows(df.getRowCount() + 1);
-        
+
         int row = df.getRowCount() - 1;
         table.setValueAt(newTimeCard.getEmployee().getName(), row, 0);
         table.setValueAt(IDateFormat.format.format(newTimeCard.getIn()), row, 1);
@@ -59,6 +59,11 @@ public class TimeCardController {
         for (int i = 0; i < list.size(); i++) {
             addListTimeCard(list.get(i), table);
         }
+    }
+
+    public List<TimeCardEntity> getAllTimeCards() {
+        TimeCardRepository repository = new TimeCardRepository();
+        return repository.getAll();        
     }
 
     public boolean updateTimeCard(TimeCardEntity oldTimeCard, TimeCardEntity newTimeCard, JTable table) {

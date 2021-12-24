@@ -18,6 +18,9 @@ public class HourlyEntity extends EmployeeEntity{
     public HourlyEntity(String workTime, String name, AddressEntity address, String CPF, boolean union, PaymentTypeEnum payment) {
         super(name, address, CPF, union, payment);
         this.workTime = workTime;
+        
+        ScheduleEntity hourly = new ScheduleEntity("hourly", "7");
+        super.setSchedule(hourly);
     }
     
     public String getWorkTime() {
