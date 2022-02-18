@@ -28,7 +28,7 @@ public class Main extends javax.swing.JFrame {
 
         AddressEntity ad = new AddressEntity("sao", "13", "grande", "Arara", "al", "11.111-111");
         HourlyEntity hr = new HourlyEntity("33.00", "Vinicius", ad, "111",
-                true, PaymentTypeEnum.Bank, LocalDateTime.of(2022, 2, 10, 12, 00));                      
+                true, PaymentTypeEnum.Bank, LocalDateTime.of(2022, 2, 11, 12, 00));                      
 
         EmployeeRepositoriy e = new EmployeeRepositoriy();
         e.insertEmployee(hr);

@@ -6,17 +6,24 @@
 package views;
 
 import controllers.PaymentRollController;
+import entities.PaymentEntity;
+import javax.swing.table.DefaultTableModel;
+import models.PaymentObserver;
+import models.Subject;
 
 /**
  *
  * @author Vinicius
  */
 public class PayRoll extends javax.swing.JPanel {
-
+    
+    Subject subjectPayment;
+    
     /**
      * Creates new form PayRoll
      */
-    public PayRoll() {    
+    public PayRoll() {
+        subjectPayment = new Subject();
         PaymentRollController controller = new PaymentRollController();
         initComponents();
         controller.paymentList(this.jTable1);
@@ -95,11 +102,21 @@ public class PayRoll extends javax.swing.JPanel {
 
     private void jButtonPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaymentActionPerformed
         // TODO add your handling code here:
+        int size = this.jTable1.getRowCount();
+        double value = 0;
+        
+        for(int i = 0; i < size; i++){
+            value += Double.valueOf(this.jTable1.getValueAt(i, 2).toString());
+        }
+        PaymentEntity payment = new PaymentEntity(String.valueOf(value));
+        PaymentObserver observer = new PaymentObserver(payment, subjectPayment);
+        while (jTable1.getModel().getRowCount() > 0) {  
+           ((DefaultTableModel) jTable1.getModel()).removeRow(0);  
+       }
     }//GEN-LAST:event_jButtonPaymentActionPerformed
     
     private void getListPayment(){
-        PaymentRollController controller = new PaymentRollController();
-        
+        PaymentRollController controller = new PaymentRollController();        
     }
     
 

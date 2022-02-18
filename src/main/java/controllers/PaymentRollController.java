@@ -19,7 +19,7 @@ import repositories.PaymentRollRepository;
  * @author Vinicius
  */
 public class PaymentRollController {
-
+       
     public void paymentList(JTable table) {
 
         DefaultTableModel df = (DefaultTableModel) table.getModel();
@@ -28,9 +28,7 @@ public class PaymentRollController {
         List<EmployeeEntity> list = controller.getAll();       
         
         for (int i = 0; i < list.size(); i++) {
-            EmployeeEntity employee = list.get(i); 
-            System.out.println(employee.getPaymentDay().toLocalDate());
-            System.out.println(LocalDate.now());
+            EmployeeEntity employee = list.get(i);            
             if (employee.getPaymentDay().toLocalDate().equals(LocalDate.now())) {
                                 
                 df.setNumRows(df.getRowCount() + 1);
