@@ -15,6 +15,7 @@ import entities.HourlyEntity;
 import entities.SalariedEntity;
 import entities.ServiceEntity;
 import java.awt.Dimension;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 import utils.PaymentTypeEnum;
@@ -324,12 +325,13 @@ public class CreateEmployee extends javax.swing.JPanel {
                     .addComponent(jLabelRateUnion)
                     .addComponent(jFormattedTextFieldRateUnion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTipo)
-                    .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabelPaymentType)
-                        .addComponent(jComboBoxPaymentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxPaymentType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabelTipo)
+                        .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelHoraTrabalho)
@@ -562,17 +564,17 @@ public class CreateEmployee extends javax.swing.JPanel {
                     this.jFormattedTextFieldComissao.getText(),
                     this.jFormattedTextFieldSalario.getText(),
                     this.jTextFieldName.getText(),
-                    addressEmployee, CPF, union, payment);
+                    addressEmployee, CPF, union, payment, LocalDateTime.now());
         } else if (TypeEmployEnum.Hourly.getType().equals(typeEmployee)) {
             newEmployee = new HourlyEntity(
                     this.jFormattedTextFieldHoraTrabalho.getText(),
                     this.jTextFieldName.getText(),
-                    addressEmployee, CPF, union, payment);
+                    addressEmployee, CPF, union, payment, LocalDateTime.now());
         } else if (TypeEmployEnum.Salaried.getType().equals(typeEmployee)) {
             newEmployee = new SalariedEntity(
                     this.jFormattedTextFieldSalario.getText(),
                     this.jTextFieldName.getText(),
-                    addressEmployee, CPF, union, payment);
+                    addressEmployee, CPF, union, payment, LocalDateTime.now());
         }
 
         String schedule = this.jComboBoxSchedule.getSelectedItem().toString();

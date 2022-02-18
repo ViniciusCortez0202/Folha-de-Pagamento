@@ -6,11 +6,11 @@
 package controllers;
 
 import entities.TimeCardEntity;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import repositories.TimeCardRepository;
-import utils.IDateFormat;
 
 /**
  *
@@ -47,8 +47,8 @@ public class TimeCardController {
 
         int row = df.getRowCount() - 1;
         table.setValueAt(newTimeCard.getEmployee().getName(), row, 0);
-        table.setValueAt(IDateFormat.format.format(newTimeCard.getIn()), row, 1);
-        table.setValueAt(IDateFormat.format.format(newTimeCard.getOut()), row, 2);
+        table.setValueAt(newTimeCard.getIn().format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm")).toString(), row, 1);
+        table.setValueAt(newTimeCard.getOut().format(DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm")).toString(), row, 2);
         table.setValueAt(newTimeCard.getId(), row, 3);
 
     }

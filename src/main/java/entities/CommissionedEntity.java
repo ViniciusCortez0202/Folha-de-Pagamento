@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.time.LocalDateTime;
+import models.CommissionPayment;
 import utils.PaymentTypeEnum;
 
 /**
@@ -16,15 +18,18 @@ public class CommissionedEntity extends EmployeeEntity {
     private String kickback;
     private String salary;
 
-    public CommissionedEntity(String kickback, String salary, String name, AddressEntity address, String CPF, boolean union, PaymentTypeEnum payment) {
-        super(name, address, CPF, union, payment);
+    public CommissionedEntity(String kickback, String salary, String name,
+            AddressEntity address, String CPF, boolean union,
+            PaymentTypeEnum payment, LocalDateTime admission) {
+        super(name, address, CPF, union, payment,
+                admission.plusDays(15), new CommissionPayment(), admission);
         this.kickback = kickback;
         this.salary = salary;
-        
         ScheduleEntity commissioned = new ScheduleEntity("commissioned", "15");
         super.setSchedule(commissioned);
-        
+
     }
+
     public String getKickback() {
         return kickback;
     }
@@ -39,6 +44,11 @@ public class CommissionedEntity extends EmployeeEntity {
 
     public void setSalary(String salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public double getSalaryPayment() {
+        return super.getPaymenteValue().payment(this);
     }
 
 }

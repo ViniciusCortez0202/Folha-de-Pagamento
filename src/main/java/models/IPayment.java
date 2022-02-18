@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package utils;
+package models;
 
-import java.text.SimpleDateFormat;
+import entities.EmployeeEntity;
 
 /**
  *
  * @author Vinicius
+ * @param <T>
  */
-public interface IDateFormat {
-    final static SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+public interface IPayment<T extends EmployeeEntity> {
+    double payment(T employee);
 }

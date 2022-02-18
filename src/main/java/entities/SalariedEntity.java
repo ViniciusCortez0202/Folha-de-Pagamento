@@ -5,6 +5,8 @@
  */
 package entities;
 
+import java.time.LocalDateTime;
+import models.SalaryPayment;
 import utils.PaymentTypeEnum;
 
 /**
@@ -15,11 +17,13 @@ public class SalariedEntity extends EmployeeEntity {
 
     private String salary;
 
-    public SalariedEntity(String salary, String name, AddressEntity address, String CPF, boolean union, PaymentTypeEnum payment) {
-        super(name, address, CPF, union, payment);
+    public SalariedEntity(String salary, String name, AddressEntity address,
+            String CPF, boolean union, PaymentTypeEnum payment, LocalDateTime admission) {
+        super(name, address, CPF, union, payment,
+                admission.plusDays(30), new SalaryPayment(), admission);
         this.salary = salary;
-        
-        ScheduleEntity salaried = new ScheduleEntity("salaried", "7");
+
+        ScheduleEntity salaried = new ScheduleEntity("salaried", "30");
         super.setSchedule(salaried);
     }
 
@@ -29,5 +33,10 @@ public class SalariedEntity extends EmployeeEntity {
 
     public void setSalary(String salary) {
         this.salary = salary;
-    }        
+    }
+
+    @Override
+    public double getSalaryPayment() {
+        return super.getPaymenteValue().payment(this);
+    }
 }

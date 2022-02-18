@@ -5,6 +5,8 @@
  */
 package views;
 
+import controllers.PaymentRollController;
+
 /**
  *
  * @author Vinicius
@@ -14,8 +16,10 @@ public class PayRoll extends javax.swing.JPanel {
     /**
      * Creates new form PayRoll
      */
-    public PayRoll() {
+    public PayRoll() {    
+        PaymentRollController controller = new PaymentRollController();
         initComponents();
+        controller.paymentList(this.jTable1);
     }
 
     /**
@@ -92,7 +96,12 @@ public class PayRoll extends javax.swing.JPanel {
     private void jButtonPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaymentActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonPaymentActionPerformed
-
+    
+    private void getListPayment(){
+        PaymentRollController controller = new PaymentRollController();
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonPayment;

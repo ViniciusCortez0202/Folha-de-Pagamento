@@ -7,7 +7,8 @@ package views;
 
 import entities.AddressEntity;
 import entities.HourlyEntity;
-import javax.swing.JFrame;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import repositories.EmployeeRepositoriy;
 import utils.PaymentTypeEnum;
 
@@ -21,11 +22,13 @@ public class Main extends javax.swing.JFrame {
      * Creates new form Main
      */
     public Main() {
+        //System.out.println(LocalDate.now(ZoneId.of("America/Sao_Paulo")).plusDays(30).equals(LocalDate.of(2022, 3, 14)));
         initComponents();
         this.setLocationRelativeTo(null);
 
-        AddressEntity ad = new AddressEntity("margarida", "20", "grande", "arapiraca", "al", "57.307-160");
-        HourlyEntity hr = new HourlyEntity("33,00", "Vinicius", ad, "12921601443", true, PaymentTypeEnum.Bank);
+        AddressEntity ad = new AddressEntity("sao", "13", "grande", "Arara", "al", "11.111-111");
+        HourlyEntity hr = new HourlyEntity("33.00", "Vinicius", ad, "111",
+                true, PaymentTypeEnum.Bank, LocalDateTime.of(2022, 2, 10, 12, 00));                      
 
         EmployeeRepositoriy e = new EmployeeRepositoriy();
         e.insertEmployee(hr);

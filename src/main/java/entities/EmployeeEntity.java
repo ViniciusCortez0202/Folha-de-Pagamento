@@ -5,9 +5,15 @@
  */
 package entities;
 
+import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.IPayment;
 import utils.PaymentTypeEnum;
 
 /**
@@ -25,8 +31,13 @@ public abstract class EmployeeEntity {
     private PaymentTypeEnum payment;
     private String unionRate;
     private ScheduleEntity schedule;
+    private LocalDateTime admission;
+    private LocalDateTime paymentDay;
+    private IPayment paymenteValue;
 
-    public EmployeeEntity(String name, AddressEntity address, String CPF, boolean union, PaymentTypeEnum payment) {
+    public EmployeeEntity(String name, AddressEntity address, String CPF,
+            boolean union, PaymentTypeEnum payment, LocalDateTime paymentDay,
+            IPayment paymentValue, LocalDateTime admission) {
         unionRate = null;
         schedule = null;
         this.service = null;
@@ -36,6 +47,9 @@ public abstract class EmployeeEntity {
         this.CPF = CPF;
         this.union = union;
         this.payment = payment;
+        this.admission = admission;
+        this.paymentDay = paymentDay;
+        this.paymenteValue = paymentValue;
     }
 
     public String getName() {
@@ -109,7 +123,33 @@ public abstract class EmployeeEntity {
     public void setSchedule(ScheduleEntity schedule) {
         this.schedule = schedule;
     }
-       
+
+    public LocalDateTime getAdmission() {
+        return admission;
+    }
+
+    public void setAdmission(LocalDateTime admission) {
+        this.admission = admission;
+    }
+
+    public LocalDateTime getPaymentDay() {
+        return paymentDay;
+    }
+
+    public void setPaymentDay(LocalDateTime paymentDay) {
+        this.paymentDay = paymentDay;
+    }
+
+    protected IPayment getPaymenteValue() {
+        return paymenteValue;
+    }
+
+    public void setPaymenteValue(IPayment paymenteValue) {
+        this.paymenteValue = paymenteValue;
+    }
+    
+    public abstract double getSalaryPayment();
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -134,5 +174,4 @@ public abstract class EmployeeEntity {
         }
         return true;
     }
-
 }

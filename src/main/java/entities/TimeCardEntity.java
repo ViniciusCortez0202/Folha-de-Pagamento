@@ -5,7 +5,7 @@
  */
 package entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -15,11 +15,11 @@ import java.util.Objects;
 public class TimeCardEntity {
     private EmployeeEntity employee;
     private String id;
-    private Date in;
-    private Date out;
+    private LocalDateTime in;
+    private LocalDateTime out;
     private boolean activate;
 
-    public TimeCardEntity(String id, EmployeeEntity employee, Date in, Date out) {
+    public TimeCardEntity(String id, EmployeeEntity employee, LocalDateTime in, LocalDateTime out) {
         this.activate = true;
         this.id = id;
         this.employee = employee;
@@ -39,19 +39,19 @@ public class TimeCardEntity {
         this.employee = employee;
     }
 
-    public Date getIn() {
+    public LocalDateTime getIn() {
         return in;
     }
 
-    public void setIn(Date in) {
+    public void setIn(LocalDateTime in) {
         this.in = in;
     }
 
-    public Date getOut() {
+    public LocalDateTime getOut() {
         return out;
     }
 
-    public void setOut(Date out) {
+    public void setOut(LocalDateTime out) {
         this.out = out;
     }
 

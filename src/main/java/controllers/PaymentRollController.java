@@ -5,88 +5,42 @@
  */
 package controllers;
 
-import entities.CommissionedEntity;
 import entities.EmployeeEntity;
-import entities.HourlyEntity;
 import entities.PaymentEntity;
-import entities.SalariedEntity;
-import entities.SoldEntity;
-import entities.TimeCardEntity;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import repositories.PaymentRollRepository;
-import utils.TypeEmployEnum;
 
 /**
  *
  * @author Vinicius
  */
 public class PaymentRollController {
-    
-    
-    public void paymentList(){
-        
+
+    public void paymentList(JTable table) {
+
+        DefaultTableModel df = (DefaultTableModel) table.getModel();
+
         EmployeeController controller = new EmployeeController();
-        List<EmployeeEntity> list = controller.getAll();
-        PaymentRollRepository repository = new PaymentRollRepository();
+        List<EmployeeEntity> list = controller.getAll();       
         
-        List<PaymentEntity> payment = repository.getAll();
-        
-        for(int i = 0; i < list.size(); i++){
-            if(payment.contains(list.get(i))){
-                int index = payment.indexOf(list.get(i));               
+        for (int i = 0; i < list.size(); i++) {
+            EmployeeEntity employee = list.get(i); 
+            System.out.println(employee.getPaymentDay().toLocalDate());
+            System.out.println(LocalDate.now());
+            if (employee.getPaymentDay().toLocalDate().equals(LocalDate.now())) {
+                                
+                df.setNumRows(df.getRowCount() + 1);
+                int index = df.getRowCount() - 1;
+                table.setValueAt(employee.getName(), index, 0);
+                table.setValueAt(employee.getCPF(), index, 1);
+                table.setValueAt(employee.getSalaryPayment(), index, 2);
+                table.setValueAt(employee.getPayment().getType(), index, 3);
             }
         }
-    }
-
-    private double calculatePayment(EmployeeEntity newEmployee) {
-        PaymentRollRepository repository = new PaymentRollRepository();
-        List<PaymentEntity> list = repository.getAll();
-
-        double value = 0;
-
-        if (newEmployee instanceof CommissionedEntity) {
-            CommissionedEntity commissionedEntity = (CommissionedEntity) newEmployee;
-
-            value = Double.parseDouble(commissionedEntity.getSalary());
-
-            SoldController sold = new SoldController();
-
-            List<SoldEntity> solds = sold.getAllSold();
-
-            for (int i = 0; i < solds.size(); i++) {
-                if (solds.get(i).getEmployee().equals(newEmployee)) {
-                    value += Double.parseDouble(solds.get(i).getValue());
-                    solds.get(i).setActivate(false);
-                }
-            }
-
-        } else if (newEmployee instanceof HourlyEntity) {
-            HourlyEntity hourlyEntity = (HourlyEntity) newEmployee;
-
-            double time = 0;
-
-            TimeCardController timeCard = new TimeCardController();
-
-            List<TimeCardEntity> timeCards = timeCard.getAllTimeCards();
-
-            for (int i = 0; i < timeCards.size(); i++) {
-                if (timeCards.get(i).getEmployee().equals(newEmployee)) {
-                    time = ChronoUnit.HOURS.between(timeCards.get(i).getOut().toInstant(), timeCards.get(i).getIn().toInstant());
-                }
-            }
-            double work = Double.parseDouble(hourlyEntity.getWorkTime());
-            if(time <= 8){
-                value = time * work;
-            } else {
-                value = 8*work + ((time - 8) * (work*15));
-            }
-
-        } else if (newEmployee instanceof SalariedEntity) {
-            SalariedEntity salariedEntity = (SalariedEntity) newEmployee;
-            value = Double.parseDouble(salariedEntity.getSalary());
-        }
-        return value;
     }
 
 }

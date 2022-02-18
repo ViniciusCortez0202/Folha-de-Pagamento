@@ -11,12 +11,13 @@ import entities.TimeCardEntity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import utils.IDateFormat;
 
 /**
  *
@@ -198,46 +199,20 @@ public class TimeCard extends javax.swing.JPanel {
 
     private void jButtonTimeCardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTimeCardActionPerformed
         // TODO add your handling code here:
-
-        StringBuilder dateIn = new StringBuilder();
-        StringBuilder dateOut = new StringBuilder();
-        int day = LocalDate.now().getDayOfMonth();
-        dateIn.append(
-                ((day < 10) ? "0" + String.valueOf(day) : String.valueOf(day))
-        );
-        dateIn.append("/");
-        int month = LocalDate.now().getMonthValue();
-        dateIn.append(
-                ((month < 10) ? "0" + String.valueOf(month) : String.valueOf(month))
-        );
-        dateIn.append("/");
-        int year = LocalDate.now().getYear();
-        dateIn.append(
-                String.valueOf(year)
-        );
-        dateOut.append(dateIn);
-        dateIn.append(" ").append(this.jFormattedTextFieldIn.getText());
-        dateOut.append(" ").append(this.jFormattedTextFieldOut.getText());
-        Date in = null;
-        Date out = null;
-        String CPF = this.jTextFieldEmpolyeeId.getText();
-        try {
-            in = IDateFormat.format.parse(dateIn.toString());
-            out = IDateFormat.format.parse(dateOut.toString());
-        } catch (ParseException ex) {
-            System.out.println("Formato de data errada");
-            return;
-        }
+       
+        LocalDateTime dateIn = LocalDateTime.of(LocalDate.now(), LocalTime.parse(this.jFormattedTextFieldIn.getText()));
+        LocalDateTime dateOut = LocalDateTime.of(LocalDate.now(), LocalTime.parse(this.jFormattedTextFieldOut.getText()));
+        String CPF = this.jTextFieldEmpolyeeId.getText();       
 
         TimeCardController controller = new TimeCardController();
         EmployeeController employeeController = new EmployeeController();
 
-        if (out.before(in)) {
+        if (dateOut.isBefore(dateIn)) {
             JOptionPane.showMessageDialog(null, "Impossível data de entrada ser menor que saída!", "Data!", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        TimeCardEntity newTimeCard = new TimeCardEntity(String.valueOf(System.currentTimeMillis()), employeeController.getEmployeeForCPF(CPF), in, out);
+        TimeCardEntity newTimeCard = new TimeCardEntity(String.valueOf(System.currentTimeMillis()), employeeController.getEmployeeForCPF(CPF), dateIn, dateOut);
         int index = this.jTableTimeCards.getSelectedRow();
 
         if (!controller.createTimeCard(newTimeCard)) {
@@ -263,16 +238,10 @@ public class TimeCard extends javax.swing.JPanel {
 
         int index = this.jTableTimeCards.getSelectedRow();
 
-        Date in = null;
-        Date out = null;
-        String CPF = this.jTextFieldEmpolyeeId.getText();
-        try {
-            in = IDateFormat.format.parse(this.jTableTimeCards.getValueAt(index, 1).toString());
-            out = IDateFormat.format.parse(this.jTableTimeCards.getValueAt(index, 2).toString());
-        } catch (ParseException ex) {
-            System.out.println("Formato de data errada");
-            return;
-        }
+        String CPF = this.jTextFieldEmpolyeeId.getText();      
+        LocalDateTime in = LocalDateTime.parse(this.jTableTimeCards.getValueAt(index, 1).toString());
+        LocalDateTime out = LocalDateTime.parse(this.jTableTimeCards.getValueAt(index, 2).toString());
+ 
 
         TimeCardController controller = new TimeCardController();
         EmployeeController employeeController = new EmployeeController();
